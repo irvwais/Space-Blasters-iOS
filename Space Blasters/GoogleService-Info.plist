@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>AD_UNIT_ID_FOR_BANNER_TEST</key>
+	<string>ca-app-pub-3940256099942544/2934735716</string>
+	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
+	<string>ca-app-pub-3940256099942544/4411468910</string>
+	<key>CLIENT_ID</key>
+	<string>698324738016-6hrbofpd61nu94fuhfsdgdenofjlbjic.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.698324738016-6hrbofpd61nu94fuhfsdgdenofjlbjic</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDk8Sv1uBdyH8QrtnNer1ksRN095UByo4w</string>
+	<key>GCM_SENDER_ID</key>
+	<string>698324738016</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.IrvingWaisman.Space-Blasters</string>
+	<key>PROJECT_ID</key>
+	<string>firstfirebase-d0ad2</string>
+	<key>STORAGE_BUCKET</key>
+	<string>firstfirebase-d0ad2.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<true></true>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<false></false>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:698324738016:ios:035a3b47c8fa7698</string>
+	<key>DATABASE_URL</key>
+	<string>https://firstfirebase-d0ad2.firebaseio.com</string>
+</dict>
+</plist>
