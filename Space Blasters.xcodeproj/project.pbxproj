@@ -34,6 +34,7 @@
 		2CD2905B207EACC9007F201E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD2905A207EACC9007F201E /* StoreKit.framework */; };
 		2CD2905D207EACE9007F201E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD2905C207EACE9007F201E /* libsqlite3.tbd */; };
 		2CEB95FD207EDEB500D232F3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB95FC207EDEB500D232F3 /* GoogleService-Info.plist */; };
+		2CEB95FF207EE26400D232F3 /* moon_get-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB95FE207EE23500D232F3 /* moon_get-Heavy.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +88,7 @@
 		2CD2905A207EACC9007F201E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		2CD2905C207EACE9007F201E /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		2CEB95FC207EDEB500D232F3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		2CEB95FE207EE23500D232F3 /* moon_get-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "moon_get-Heavy.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +161,7 @@
 				2C4B5DF3207BDEFF00E01C5F /* Main.storyboard */,
 				2C306372207D9A05008D154D /* boomSound.wav */,
 				2C4B5E1D207BED9700E01C5F /* laserSound.wav */,
+				2CEB95FE207EE23500D232F3 /* moon_get-Heavy.ttf */,
 				2C4B5DF6207BDEFF00E01C5F /* Assets.xcassets */,
 				2C4B5DF8207BDEFF00E01C5F /* LaunchScreen.storyboard */,
 				2C4B5DFB207BDEFF00E01C5F /* Info.plist */,
@@ -312,6 +315,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CEB95FF207EE26400D232F3 /* moon_get-Heavy.ttf in Resources */,
 				2C306373207D9A05008D154D /* boomSound.wav in Resources */,
 				2CEB95FD207EDEB500D232F3 /* GoogleService-Info.plist in Resources */,
 				2C4B5DF5207BDEFF00E01C5F /* Main.storyboard in Resources */,

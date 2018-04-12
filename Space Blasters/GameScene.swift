@@ -14,6 +14,15 @@ import GameplayKit
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Declare Objects globally to be accessed by any func in class
+    var gameScore = 0 // score count starts at zero
+    let scoreText = SKLabelNode(fontNamed: "Heavy Font")
+    
+    var livesCount = 5 // player starts with 5 lives
+    let livesText = SKLabelNode (fontNamed: "Heavy Font")
+    
+    var levelNumber = 0 // variable starts at level 0
+    var enemyShipSpeed: Double = 5; // speed for enemy kamikaze ships
+    
     let player = SKSpriteNode (imageNamed: "PlayerShip")
     //let enemy = SKSpriteNode(imageNamed: "EnemyShip")
     let laserSound = SKAction.playSoundFileNamed("laserSound.wav", waitForCompletion: false)
@@ -66,7 +75,55 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody!.contactTestBitMask = PhysicsLayers.Enemy //| PhysicsLayers.EnemyLaser // player phyiscs layer can make contact with phyiscs layers of enemy and enemyLaser
         self.addChild(player) // Add player to the scene
         
+        // Score Text Settings
+        scoreText.text = "Score: 0" // Text for score to display at start of game
+        scoreText.fontSize = 70 // Size of Score Text
+        scoreText.fontColor = SKColor.white // Colour of Score text
+        scoreText.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left // Make sure that if score increases that text is stuck to the left of screen
+        scoreText.position = CGPoint(x: self.size.width * 0.15, y: self.size.height * 0.9) // position of score text
+        scoreText.zPosition = 50 // High z position to gurantee that score is always on top of gameplay
+        self.addChild(scoreText) // add score text to scene
+        
+        // Lives Text Settings
+        livesText.text = "Lives: 5"
+        livesText.fontSize = 70
+        livesText.fontColor = SKColor.white
+        livesText.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
+        livesText.position = CGPoint(x: self.size.width * 0.85, y: self.size.height * 0.9) // position of score text
+        livesText.zPosition = 50 // High z position to gurantee that score is always on top of gameplay
+        self.addChild(livesText) // add score text to scene
+        
         startLevel()
+    }
+    
+    func addScore () {
+        
+        gameScore += 10
+        scoreText.text = "Score: \(gameScore)"
+        
+        if gameScore == 50 || // if score reaches 50 start level 2
+            gameScore == 100 || // if score reaches 100 start level 3
+            gameScore == 150 || // if score reaches 150 start level 4
+            gameScore == 200 || // if score reaches 200 start level 5
+            gameScore == 250 || // if score reaches 250 start level 6
+            gameScore == 300 || // if score reaches 300 start level 7
+            gameScore == 350 || // if score reaches 350 start level 8
+            gameScore == 400 || // if score reaches 400 start level 9
+            gameScore == 450 { // if score reaches 450 start level 10
+                startLevel()
+        }
+    }
+    
+    func loseLives () {
+        
+        livesCount -= 1
+        livesText.text = "Lives: \(livesCount)"
+        
+        // Animate lives text to make player pay attention to live count
+        let scaleUp = SKAction.scale(to: 1.5, duration: 0.3)
+        let scaleDown = SKAction.scale(to: 1, duration: 0.3)
+        let scaleTextSequence = SKAction.sequence([scaleUp, scaleDown])
+        livesText.run(scaleTextSequence)
     }
     
     func didBegin(_ contact: SKPhysicsContact) { // did we contact between two phyiscs bodies (physic layers)
@@ -101,6 +158,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // if playerLaser and enemy have made contact and enemy is on the screen
         if body1.categoryBitMask == PhysicsLayers.PlayerLaser && body2.categoryBitMask == PhysicsLayers.Enemy && (body2.node?.position.y)! < self.size.height {
+            
+            addScore() // call add score method when player shoots enemy ship
             
             if body2.node != nil {
                 spawnExplosion(spawnPosition: body2.node!.position) // spawn explosion at the position of body2 (enemy ship)
@@ -144,11 +203,55 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func startLevel () {
         
+        levelNumber += 1 // First time this method runs start at level 1
+        
+        if self.action(forKey: "spawningEnemies") != nil { // if we are already spawning enemies then stop and change for the next level
+            self.removeAction(forKey: "spawningEnemies")
+        }
+        
+        var spawnEnemyDuration = TimeInterval()
+        
+        switch levelNumber {
+        case 1: // Level 1
+            spawnEnemyDuration = 3
+            enemyShipSpeed = 5
+        case 2: // Level 2
+            spawnEnemyDuration = 2.7
+            enemyShipSpeed = 4.7
+        case 3: // Level 3
+            spawnEnemyDuration = 2.3
+            enemyShipSpeed = 4.3
+        case 4: // Level 4
+            spawnEnemyDuration = 2.0
+            enemyShipSpeed = 4.0
+        case 5: // Level 5
+            spawnEnemyDuration = 1.8
+            enemyShipSpeed = 3.5
+        case 6: // Level 6
+            spawnEnemyDuration = 1.5
+            enemyShipSpeed = 3.3
+        case 7: // Level 7
+            spawnEnemyDuration = 1.3
+            enemyShipSpeed = 3.0
+        case 8: // Level 8
+            spawnEnemyDuration = 1
+            enemyShipSpeed = 2.8
+        case 9: // Level 9
+            spawnEnemyDuration = 0.8
+            enemyShipSpeed = 2.5
+        case 10: // Level 10
+            spawnEnemyDuration = 0.5
+            enemyShipSpeed = 2
+        default:
+            spawnEnemyDuration = 3
+            print("Spawn Enemy for each level ERROR!")
+        }
+        
         let spawn = SKAction.run(spawnEnemy)
-        let waitToSpawn = SKAction.wait(forDuration: 3)
-        let spawnSequence = SKAction.sequence([spawn, waitToSpawn])
+        let waitToSpawn = SKAction.wait(forDuration: spawnEnemyDuration)
+        let spawnSequence = SKAction.sequence([waitToSpawn, spawn])
         let spawnForever = SKAction.repeatForever(spawnSequence)
-        self.run(spawnForever)
+        self.run(spawnForever, withKey: "spawningEnemies")
     }
     
     func firePlayerLaser () {
@@ -213,10 +316,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemy.physicsBody!.contactTestBitMask = PhysicsLayers.Player | PhysicsLayers.PlayerLaser // enemy ship phyiscs layer can make contact with phyiscs layers of player or laser
         self.addChild(enemy) // Add enemy ship to the scene
         
-        let moveEnemy = SKAction.move(to: endPoint, duration: 5) // Move enmy ship to endPoint in set seconds
+        let moveEnemy = SKAction.move(to: endPoint, duration: enemyShipSpeed) // Move enmy ship to endPoint in set seconds
         let deleteEnemy = SKAction.removeFromParent() // delete enemy
-        let enemySequence = SKAction.sequence([moveEnemy, deleteEnemy]) // sequence of enemy ship
+        let enemyPassedPlayer = SKAction.run(loseLives) // if enemy ship flies past the player run method loseLives
+        let enemySequence = SKAction.sequence([moveEnemy, deleteEnemy, enemyPassedPlayer]) // sequence of enemy ship
         enemy.run(enemySequence)
+        
+        
         
         // Rotation of Enemy Ship
         let deltaX = endPoint.x - startPoint.x
