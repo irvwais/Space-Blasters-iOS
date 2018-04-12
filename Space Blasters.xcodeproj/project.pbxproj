@@ -33,7 +33,7 @@
 		2CD29059207EACBB007F201E /* libicucore.A.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD29058207EACBA007F201E /* libicucore.A.tbd */; };
 		2CD2905B207EACC9007F201E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD2905A207EACC9007F201E /* StoreKit.framework */; };
 		2CD2905D207EACE9007F201E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD2905C207EACE9007F201E /* libsqlite3.tbd */; };
-		2CD2905F207EAE46007F201E /* GoogleService-Info .plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CD2905E207EAE46007F201E /* GoogleService-Info .plist */; };
+		2CEB95FD207EDEB500D232F3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB95FC207EDEB500D232F3 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,7 +86,7 @@
 		2CD29058207EACBA007F201E /* libicucore.A.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.A.tbd; path = usr/lib/libicucore.A.tbd; sourceTree = SDKROOT; };
 		2CD2905A207EACC9007F201E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		2CD2905C207EACE9007F201E /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		2CD2905E207EAE46007F201E /* GoogleService-Info .plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info .plist"; sourceTree = "<group>"; };
+		2CEB95FC207EDEB500D232F3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,7 +150,7 @@
 		2C4B5DE8207BDEFF00E01C5F /* Space Blasters */ = {
 			isa = PBXGroup;
 			children = (
-				2CD2905E207EAE46007F201E /* GoogleService-Info .plist */,
+				2CEB95FC207EDEB500D232F3 /* GoogleService-Info.plist */,
 				2C4B5DE9207BDEFF00E01C5F /* AppDelegate.swift */,
 				2C4B5DEB207BDEFF00E01C5F /* GameScene.sks */,
 				2C4B5DED207BDEFF00E01C5F /* Actions.sks */,
@@ -313,8 +313,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C306373207D9A05008D154D /* boomSound.wav in Resources */,
+				2CEB95FD207EDEB500D232F3 /* GoogleService-Info.plist in Resources */,
 				2C4B5DF5207BDEFF00E01C5F /* Main.storyboard in Resources */,
-				2CD2905F207EAE46007F201E /* GoogleService-Info .plist in Resources */,
 				2C4B5DEC207BDEFF00E01C5F /* GameScene.sks in Resources */,
 				2C4B5DF7207BDEFF00E01C5F /* Assets.xcassets in Resources */,
 				2C4B5DFA207BDEFF00E01C5F /* LaunchScreen.storyboard in Resources */,
