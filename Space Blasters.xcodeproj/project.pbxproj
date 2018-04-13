@@ -35,6 +35,7 @@
 		2CD2905D207EACE9007F201E /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD2905C207EACE9007F201E /* libsqlite3.tbd */; };
 		2CEB95FD207EDEB500D232F3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB95FC207EDEB500D232F3 /* GoogleService-Info.plist */; };
 		2CEB95FF207EE26400D232F3 /* moon_get-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB95FE207EE23500D232F3 /* moon_get-Heavy.ttf */; };
+		2CF570B420816E8E00B9210A /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF570B320816E8E00B9210A /* GameOverScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		2CD2905C207EACE9007F201E /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		2CEB95FC207EDEB500D232F3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2CEB95FE207EE23500D232F3 /* moon_get-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "moon_get-Heavy.ttf"; sourceTree = "<group>"; };
+		2CF570B320816E8E00B9210A /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 				2C4B5DEB207BDEFF00E01C5F /* GameScene.sks */,
 				2C4B5DED207BDEFF00E01C5F /* Actions.sks */,
 				2C4B5DEF207BDEFF00E01C5F /* GameScene.swift */,
+				2CF570B320816E8E00B9210A /* GameOverScene.swift */,
 				2C4B5DF1207BDEFF00E01C5F /* GameViewController.swift */,
 				2C4B5DF3207BDEFF00E01C5F /* Main.storyboard */,
 				2C306372207D9A05008D154D /* boomSound.wav */,
@@ -352,6 +355,7 @@
 				2C4B5DF0207BDEFF00E01C5F /* GameScene.swift in Sources */,
 				2C306371207D8805008D154D /* CollisionDetection.swift in Sources */,
 				2C4B5DF2207BDEFF00E01C5F /* GameViewController.swift in Sources */,
+				2CF570B420816E8E00B9210A /* GameOverScene.swift in Sources */,
 				2C4B5DEA207BDEFF00E01C5F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

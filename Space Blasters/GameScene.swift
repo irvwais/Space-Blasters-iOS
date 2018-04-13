@@ -11,29 +11,49 @@
 import SpriteKit
 import GameplayKit
 
+// Declare Objects Globally to be Accessed By any Class in the Project
+var gameScore = 0 // score count starts at zero
+
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Declare Objects globally to be accessed by any func in class
-    var gameScore = 0 // score count starts at zero
     let scoreText = SKLabelNode(fontNamed: "Heavy Font")
     
     var livesCount = 5 // player starts with 5 lives
     let livesText = SKLabelNode (fontNamed: "Heavy Font")
     
     var levelNumber = 0 // variable starts at level 0
-    var enemyShipSpeed: Double = 5; // speed for enemy kamikaze ships
+    var enemyShipSpeed: Double = 5 // speed for enemy kamikaze ships
+    
+    // Enemy Boss Stats
+    //let enemyBoss = SKSpriteNode(imageNamed: "BossShip")
+    var enemyBossSpeed: Double = 5 // speed for enemy boss
+    var yesSpawnEnemyBoss : Bool = false // flag for spawning enemyBoss
+    var enemBossLives = 3 // amount lives for the enemy boss
     
     let player = SKSpriteNode (imageNamed: "PlayerShip")
     //let enemy = SKSpriteNode(imageNamed: "EnemyShip")
     let laserSound = SKAction.playSoundFileNamed("laserSound.wav", waitForCompletion: false)
     let boomSound = SKAction.playSoundFileNamed("boomSound.wav", waitForCompletion: false)
     
+    enum GameState: Int {
+        
+        case preGame = 0 // When Game State is before the start of the game
+        case duringGame = 1 // When Game State is running
+        case postGame = 2 // When Game State is after playing game (Game Over)
+    }
+    
+    var currentGameState = GameState.duringGame // store current game state
+    
     struct PhysicsLayers {
+        
         static let None : UInt32 = 0
         static let Player : UInt32 = 0b1 // 1 in binary
         static let PlayerLaser : UInt32 = 0b10 // 2 in binary
         static let Enemy : UInt32 = 0b100 // 4 in binary
-        //static let EnemyLaser : UInt32 = 0b111+0b1 // 8 in binary
+        static let EnemyLaser : UInt32 = 0b1000 // 8 in binary
+        static let EnemyBoss : UInt32 = 0b10000 // 16 in binary
     }
     
     let gameSpace : CGRect
@@ -54,6 +74,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func didMove (to view: SKView) {
+        
+        gameScore = 0 // Reset game score back to zero
         
         self.physicsWorld.contactDelegate = self // Set Up Physics to be delegated to this class
         
@@ -124,6 +146,50 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let scaleDown = SKAction.scale(to: 1, duration: 0.3)
         let scaleTextSequence = SKAction.sequence([scaleUp, scaleDown])
         livesText.run(scaleTextSequence)
+        
+        if livesCount == 0 {
+            runGameOver()
+        }
+    }
+    
+    func runGameOver () {
+        
+        currentGameState = GameState.postGame
+        
+        self.removeAllActions() // stop all actions running on the scene
+        
+        self.enumerateChildNodes(withName: "PlayerLaserRef") { // find all nodes in scene with reference name PlayerLaserRef
+            playerLaser, stop in // cycle through callin each playerLaser Node
+            playerLaser.removeAllActions() // stop all actions of playerLaser
+        }
+        
+        self.enumerateChildNodes(withName: "EnemyLaserRef") { // find all nodes in scene with reference name EnemyLaserRef
+            enemyLaser, stop in // cycle through callin each enemyLaser Node
+            enemyLaser.removeAllActions() // stop all actions of enemyLaser
+        }
+        
+        self.enumerateChildNodes(withName: "EnemyBossRef") { // find all nodes in scene with reference name EnemyBossRef
+            enemyBoss, stop in // cycle through callin each enemyBoss Node
+            enemyBoss.removeAllActions() // stop all actions of enemyBoss
+        }
+        
+        self.enumerateChildNodes(withName: "EnemyShipRef") { // find all nodes in scene with reference name EnemyShipRef
+            enemy, stop in // cycle through callin each enemy Node
+            enemy.removeAllActions() // stop all actions of enemy
+        }
+        
+        let changeScene = SKAction.run(callGameOverScene)
+        let waitToChancgeScene = SKAction.wait(forDuration: 1)
+        let changeSceneSequence = SKAction.sequence([waitToChancgeScene, changeScene])
+        self.run(changeSceneSequence)
+    }
+    
+    func callGameOverScene() {
+        
+        let callScene = GameOverScene(size: self.size) // make sure game over scene is the same size as game scene
+        callScene.scaleMode = self.scaleMode // same goes for the scale
+        let sceneTransition = SKTransition.fade(withDuration: 0.5) // transition to scne in set duration
+        self.view!.presentScene(callScene, transition: sceneTransition) // call scene
     }
     
     func didBegin(_ contact: SKPhysicsContact) { // did we contact between two phyiscs bodies (physic layers)
@@ -154,6 +220,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // ? (optional) because two bodies of the same layer might make contact at the same time which could crash the game
             body1.node?.removeFromParent() // find the node accosiated with the body1 and delete it
             body2.node?.removeFromParent() // find the node accosiated with the body2 and delete it
+            
+            runGameOver()
         }
         
         // if playerLaser and enemy have made contact and enemy is on the screen
@@ -170,17 +238,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             body2.node?.removeFromParent() // find the node accosiated with the body2 and delete it
         }
         
-//        // if player and enemyLaser have made contact
-//        if body1.categoryBitMask == PhysicsLayers.Player && body2.categoryBitMask == PhysicsLayers.EnemyLaser {
-//
-//            if body1.node != nil {
-//                spawnExplosion(spawnPosition: body1.node!.position) // spawn explosion at the position of body1 (player ship)
-//            }
-//
-//            // ? (optional) because two bodies of the same layer might make contact at the same time which could crash the game
-//            body1.node?.removeFromParent() // find the node accosiated with the body1 and delete it
-//            body2.node?.removeFromParent() // find the node accosiated with the body2 and delete it
-//        }
+        // if playerLaser and enemy boss have made contact and enemy is on the screen
+        if body1.categoryBitMask == PhysicsLayers.PlayerLaser && body2.categoryBitMask == PhysicsLayers.EnemyBoss {
+            
+            enemBossLives -= 1 // decrease enemy boss life
+            
+            if body2.node != nil && enemBossLives == 0 {
+                addScore() // call add score method when player shoots enemy boss
+                body2.node?.removeFromParent() // find the node accosiated with the body2 and delete it
+                enemBossLives = 3 // reset enemy boss lives to 3
+                yesSpawnEnemyBoss = false
+                spawnExplosion(spawnPosition: body2.node!.position) // spawn explosion at the position of body2 (enemy boss)
+            }
+            
+            // ? (optional) because two bodies of the same layer might make contact at the same time which could crash the game
+            body1.node?.removeFromParent() // find the node accosiated with the body1 and delete it
+            
+        }
+        
+        // if player and enemyLaser have made contact
+        if body1.categoryBitMask == PhysicsLayers.Player && body2.categoryBitMask == PhysicsLayers.EnemyLaser {
+
+            if body1.node != nil {
+                //spawnExplosion(spawnPosition: body1.node!.position) // spawn explosion at the position of body1 (player ship)
+                loseLives() // lose player lives with each hit from enemy laser
+            }
+
+            // ? (optional) because two bodies of the same layer might make contact at the same time which could crash the game
+            //body1.node?.removeFromParent() // find the node accosiated with the body1 and delete it
+            body2.node?.removeFromParent() // find the node accosiated with the body2 and delete it
+        }
     }
     
     func spawnExplosion (spawnPosition: CGPoint) {
@@ -205,7 +292,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         levelNumber += 1 // First time this method runs start at level 1
         
-        if self.action(forKey: "spawningEnemies") != nil { // if we are already spawning enemies then stop and change for the next level
+        if self.action(forKey: "spawningEnemies") != nil && !yesSpawnEnemyBoss{ // if we are already spawning enemies then stop and change for the next level
             self.removeAction(forKey: "spawningEnemies")
         }
         
@@ -218,12 +305,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case 2: // Level 2
             spawnEnemyDuration = 2.7
             enemyShipSpeed = 4.7
+            yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         case 3: // Level 3
             spawnEnemyDuration = 2.3
             enemyShipSpeed = 4.3
         case 4: // Level 4
             spawnEnemyDuration = 2.0
             enemyShipSpeed = 4.0
+            yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         case 5: // Level 5
             spawnEnemyDuration = 1.8
             enemyShipSpeed = 3.5
@@ -248,16 +337,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         let spawn = SKAction.run(spawnEnemy)
+        let spawnEnemyBosses = SKAction.run(spawnEnemyBoss)
         let waitToSpawn = SKAction.wait(forDuration: spawnEnemyDuration)
-        let spawnSequence = SKAction.sequence([waitToSpawn, spawn])
-        let spawnForever = SKAction.repeatForever(spawnSequence)
+        
+        if yesSpawnEnemyBoss {
+            let spawnEnemyBossSequence = SKAction.sequence([waitToSpawn, spawnEnemyBosses])
+            self.run(spawnEnemyBossSequence)
+        } else {
+            
+        }
+        let spawnEnemyShipSequence = SKAction.sequence([waitToSpawn, spawn])
+        let spawnForever = SKAction.repeatForever(spawnEnemyShipSequence)
         self.run(spawnForever, withKey: "spawningEnemies")
+        
     }
     
     func firePlayerLaser () {
         
         // Player Laser Settings
         let playerLaser = SKSpriteNode (imageNamed: "PlayerLaser")
+        playerLaser.name = "PlayerLaserRef" // Reference name for Player Laser
         playerLaser.setScale(1)
         playerLaser.position = player.position // Spawn player laser at postion of the player
         playerLaser.zPosition = 1 // Spawn under player ship
@@ -275,26 +374,64 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         playerLaser.run(laserSequence)
     }
     
-//    func fireEnemyLaser () {
-//
-//        // Enemy Laser Settings
-//        let enemyLaser = SKSpriteNode (imageNamed: "EnemyLaser")
-//        enemyLaser.setScale(1)
-//        enemyLaser.position = enemy.position // Spawn enemy laser at postion of the enemy
-//        enemyLaser.zPosition = 1 // Spawn under player ship
-//        enemyLaser.physicsBody = SKPhysicsBody(rectangleOf: enemyLaser.size) // add physicsBody (Collision Detection Box) to the size of enemyLaser
-//        enemyLaser.physicsBody!.affectedByGravity = false // make sure the attached physicsBody does not use gravity to pull enemyLaser down
-//        enemyLaser.physicsBody!.categoryBitMask = PhysicsLayers.EnemyLaser // assigned enemyLaser to phyiscs layer Laser
-//        enemyLaser.physicsBody!.collisionBitMask = PhysicsLayers.None // Collision cannot occur with any layer
-//        enemyLaser.physicsBody!.contactTestBitMask = PhysicsLayers.Player // enemyLaser phyiscs layer can make contact with phyiscs layers of enemy
-//        self.addChild(enemyLaser) // add enemyLaser to scene
-//
-//        let moveEnemyLaser = SKAction.moveTo(y: self.size.height - enemyLaser.size.height, duration: 1) // move Laser down along Y axis for 1 sec
-//        let deleteEnemyLaser = SKAction.removeFromParent() // delete after 1 sec
-//
-//        let laserSequence = SKAction.sequence([laserSound, moveEnemyLaser, deleteEnemyLaser]) // sequence of events for shooting player lasers
-//        enemyLaser.run(laserSequence)
-//    }
+    func fireEnemyLaser () {
+
+        // Enemy Laser Settings
+        let enemyLaser = SKSpriteNode (imageNamed: "EnemyLaser")
+        enemyLaser.name = "EnemyLaserRef" // Reference name for Enemy Laser
+        enemyLaser.setScale(1)
+        enemyLaser.position = (self.childNode(withName: "EnemyBossRef")?.position)! // Spawn enemy laser at postion of the enemy
+        enemyLaser.zPosition = 1 // Spawn under player ship
+        enemyLaser.physicsBody = SKPhysicsBody(rectangleOf: enemyLaser.size) // add physicsBody (Collision Detection Box) to the size of enemyLaser
+        enemyLaser.physicsBody!.affectedByGravity = false // make sure the attached physicsBody does not use gravity to pull enemyLaser down
+        enemyLaser.physicsBody!.categoryBitMask = PhysicsLayers.EnemyLaser // assigned enemyLaser to phyiscs layer Laser
+        enemyLaser.physicsBody!.collisionBitMask = PhysicsLayers.None // Collision cannot occur with any layer
+        enemyLaser.physicsBody!.contactTestBitMask = PhysicsLayers.Player // enemyLaser phyiscs layer can make contact with phyiscs layers of enemy
+        self.addChild(enemyLaser) // add enemyLaser to scene
+
+        let moveEnemyLaser = SKAction.moveTo(y: -self.size.height + enemyLaser.size.height, duration: 1.5) // move Laser down along Y axis for set duration
+        let deleteEnemyLaser = SKAction.removeFromParent() // delete after 1 sec
+
+        let laserSequence = SKAction.sequence([laserSound, moveEnemyLaser, deleteEnemyLaser]) // sequence of events for shooting player lasers
+        enemyLaser.run(laserSequence)
+    }
+    
+    func spawnEnemyBoss () {
+        
+        let leftEndPoint = CGPoint (x: self.size.width * 0.23, y: self.size.height * 0.8) // leftPoint of travel for enemyBoss
+        let rightEndPoint = CGPoint (x: self.size.width * 0.77, y: self.size.height * 0.8) // rightPoint of travel for enemyBoss
+        
+        //let randomFireLaser = CGFloat.random(min: 1, max:3) // random time for firing lasers
+        
+        // Enemy Boss Settings
+        let enemyBoss = SKSpriteNode(imageNamed: "BossShip")
+        enemyBoss.name = "EnemyBossRef" // Reference for Enemy Boss
+        enemyBoss.setScale(1.5) // Set scale of enemy Boss (1) being normal
+        enemyBoss.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.8) // spawn enemy boss at top of screen
+        enemyBoss.zPosition = 2 // zPosition of enemy boss
+        enemyBoss.physicsBody = SKPhysicsBody(rectangleOf: enemyBoss.size) // add physicsBody (Collision Detection Box) to the size of enemy boss
+        enemyBoss.physicsBody!.affectedByGravity = false // make sure the attached physicsBody does not use gravity to pull enemyBoss down
+        enemyBoss.physicsBody!.categoryBitMask = PhysicsLayers.EnemyBoss // assigned enemyBoss to phyiscs layer Enemy
+        enemyBoss.physicsBody!.collisionBitMask = PhysicsLayers.None // Collision cannot occur with any layer
+        enemyBoss.physicsBody!.contactTestBitMask = PhysicsLayers.PlayerLaser // enemy ship phyiscs layer can make contact with phyiscs layers of laser
+        self.addChild(enemyBoss) // Add enemyBoss to the scene
+        
+        let moveEnemyBossLeft = SKAction.move(to: leftEndPoint, duration: enemyBossSpeed) // move enemyBoss to left end point
+        let moveEnemyBossRight = SKAction.move(to: rightEndPoint, duration: enemyBossSpeed) // move enemyBoss to right end point
+        let fireLaser = SKAction.run(fireEnemyLaser) // variable for running method firEnemyLaser
+        let deleteEnemyBoss = SKAction.removeFromParent() // delete enemyBoss
+        
+        if !yesSpawnEnemyBoss {
+            enemyBoss.run(deleteEnemyBoss)
+        } else {
+            let enemyBossSequence = SKAction.sequence([fireLaser, moveEnemyBossLeft, fireLaser, moveEnemyBossRight, fireLaser]) // sequence of enemy boss
+            let moveEnemyBossWhileAlive = SKAction.repeatForever(enemyBossSequence) // move enemy boss while it has lives
+            
+            if currentGameState == GameState.duringGame { // only this sequence if game is actually running
+                enemyBoss.run(moveEnemyBossWhileAlive)
+            }
+        }
+    }
     
     func spawnEnemy () {
         
@@ -306,6 +443,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // Enemy Ship Settings
         let enemy = SKSpriteNode(imageNamed: "EnemyShip")
+        enemy.name = "EnemyShipRef" // Reference for Enemy Boss
         enemy.setScale(0.3) // Set Scale of Enemy Ship (1) being Normal
         enemy.position = startPoint // set postion of enemy ship
         enemy.zPosition = 2 // zPostion of enemy
@@ -316,13 +454,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemy.physicsBody!.contactTestBitMask = PhysicsLayers.Player | PhysicsLayers.PlayerLaser // enemy ship phyiscs layer can make contact with phyiscs layers of player or laser
         self.addChild(enemy) // Add enemy ship to the scene
         
-        let moveEnemy = SKAction.move(to: endPoint, duration: enemyShipSpeed) // Move enmy ship to endPoint in set seconds
+        let moveEnemy = SKAction.move(to: endPoint, duration: enemyShipSpeed) // Move enemy ship to endPoint in set seconds
         let deleteEnemy = SKAction.removeFromParent() // delete enemy
         let enemyPassedPlayer = SKAction.run(loseLives) // if enemy ship flies past the player run method loseLives
         let enemySequence = SKAction.sequence([moveEnemy, deleteEnemy, enemyPassedPlayer]) // sequence of enemy ship
-        enemy.run(enemySequence)
         
-        
+        if currentGameState == GameState.duringGame { // only this sequence if game is actually running
+            enemy.run(enemySequence)
+        }
         
         // Rotation of Enemy Ship
         let deltaX = endPoint.x - startPoint.x
@@ -340,8 +479,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        firePlayerLaser()
-        //spawnEnemy() // Just for testing
+        if currentGameState == GameState.duringGame { // only allow player to shoot laser if the Current Game State is duringGame
+            firePlayerLaser()
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -351,8 +491,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let previousPointOfTouch = touch.previousLocation(in: self) // where player was touching the screen
             let amountDragged = pointOfTouch.x - previousPointOfTouch.x // get the difference
             
-            player.position.x += amountDragged // add to the player ship position to move
-            
+            if currentGameState == GameState.duringGame { // only allow player to move ship if the Current Game State is duringGame
+                player.position.x += amountDragged // add to the player ship position to move
+            }
             if player.position.x > gameSpace.maxX - player.size.width / 2 { // If player moves to the maximum right, restrain position before that boarder
                 player.position.x = gameSpace.maxX - player.size.width / 2
             }
