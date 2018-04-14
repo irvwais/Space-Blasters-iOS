@@ -36,6 +36,7 @@
 		2CEB95FD207EDEB500D232F3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB95FC207EDEB500D232F3 /* GoogleService-Info.plist */; };
 		2CEB95FF207EE26400D232F3 /* moon_get-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB95FE207EE23500D232F3 /* moon_get-Heavy.ttf */; };
 		2CF570B420816E8E00B9210A /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF570B320816E8E00B9210A /* GameOverScene.swift */; };
+		2CF570B620817CFF00B9210A /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF570B520817CFF00B9210A /* MainMenuScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		2CEB95FC207EDEB500D232F3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2CEB95FE207EE23500D232F3 /* moon_get-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "moon_get-Heavy.ttf"; sourceTree = "<group>"; };
 		2CF570B320816E8E00B9210A /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		2CF570B520817CFF00B9210A /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +172,7 @@
 				2C4B5DFB207BDEFF00E01C5F /* Info.plist */,
 				2C4B5E1F207BF68000E01C5F /* MathStuff.swift */,
 				2C306370207D8805008D154D /* CollisionDetection.swift */,
+				2CF570B520817CFF00B9210A /* MainMenuScene.swift */,
 			);
 			path = "Space Blasters";
 			sourceTree = "<group>";
@@ -356,6 +359,7 @@
 				2C306371207D8805008D154D /* CollisionDetection.swift in Sources */,
 				2C4B5DF2207BDEFF00E01C5F /* GameViewController.swift in Sources */,
 				2CF570B420816E8E00B9210A /* GameOverScene.swift in Sources */,
+				2CF570B620817CFF00B9210A /* MainMenuScene.swift in Sources */,
 				2C4B5DEA207BDEFF00E01C5F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

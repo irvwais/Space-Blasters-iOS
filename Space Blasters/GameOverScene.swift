@@ -12,6 +12,7 @@ import SpriteKit
 class GameOverScene: SKScene {
     
     let playAgainText = SKLabelNode (fontNamed: "Heavy Font")
+    let mainMenuText = SKLabelNode (fontNamed: "Heavy Font")
     
     override func didMove(to view: SKView) {
         
@@ -64,6 +65,14 @@ class GameOverScene: SKScene {
         playAgainText.zPosition = 1
         playAgainText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.25)
         self.addChild(playAgainText)
+        
+        // Main Menu Settings
+        mainMenuText.text = "Main Menu"
+        mainMenuText.fontSize = 90
+        mainMenuText.fontColor = SKColor.white
+        mainMenuText.zPosition = 1
+        mainMenuText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.1)
+        self.addChild(mainMenuText)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -72,12 +81,22 @@ class GameOverScene: SKScene {
             
             let pointOfTouch = touch.location(in: self) // check where the touch was made
             
-            if playAgainText.contains(pointOfTouch) { // see if the touch was the test play again
+            // See if the touch was the test play again text
+            if playAgainText.contains(pointOfTouch) {
                 
-                let callScene = GameScene(size: self.size) // make sure game scene is the same size as game scene
+                let callScene = GameScene(size: self.size) // make sure game scene is the same size
                 callScene.scaleMode = self.scaleMode // same goes for the scale
                 let sceneTransition = SKTransition.fade(withDuration: 0.5) // transition to scene in set duration
                 self.view!.presentScene(callScene, transition: sceneTransition) // call scene
+            }
+            
+            // See if the touch was the test play again text
+            if mainMenuText.contains(pointOfTouch) {
+                
+                let callMenuScene = MainMenuScene(size: self.size) // make sure main menu scene is the same size
+                callMenuScene.scaleMode = self.scaleMode // same goes for the scale
+                let sceneMenuTransition = SKTransition.fade(withDuration: 0.5) // transition to scene in set duration
+                self.view!.presentScene(callMenuScene, transition: sceneMenuTransition) // call scene
                 
             }
         }
