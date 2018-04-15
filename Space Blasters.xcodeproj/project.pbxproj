@@ -39,6 +39,7 @@
 		2CF570B620817CFF00B9210A /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF570B520817CFF00B9210A /* MainMenuScene.swift */; };
 		A61E43602083D11500063397 /* JetEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = A61E435E2083D11500063397 /* JetEmitter.sks */; };
 		A61E43612083D11500063397 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A61E435F2083D11500063397 /* Assets.xcassets */; };
+		A61E43632083DD1900063397 /* SpriteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61E43622083DD1900063397 /* SpriteSheet.swift */; };
 		A6FB60F32082D8E3004C3158 /* backgroundMusic.wav in Resources */ = {isa = PBXBuildFile; fileRef = A6FB60F22082D8E3004C3158 /* backgroundMusic.wav */; };
 		A6FB60F72082F9C4004C3158 /* CreditsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FB60F62082F9C4004C3158 /* CreditsScene.swift */; };
 /* End PBXBuildFile section */
@@ -99,6 +100,7 @@
 		2CF570B520817CFF00B9210A /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		A61E435E2083D11500063397 /* JetEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = JetEmitter.sks; sourceTree = "<group>"; };
 		A61E435F2083D11500063397 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A61E43622083DD1900063397 /* SpriteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteSheet.swift; sourceTree = "<group>"; };
 		A6FB60F22082D8E3004C3158 /* backgroundMusic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = backgroundMusic.wav; sourceTree = "<group>"; };
 		A6FB60F62082F9C4004C3158 /* CreditsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -182,6 +184,7 @@
 				2C306370207D8805008D154D /* CollisionDetection.swift */,
 				2CF570B520817CFF00B9210A /* MainMenuScene.swift */,
 				A6FB60F62082F9C4004C3158 /* CreditsScene.swift */,
+				A61E43622083DD1900063397 /* SpriteSheet.swift */,
 			);
 			path = "Space Blasters";
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 				2CF570B420816E8E00B9210A /* GameOverScene.swift in Sources */,
 				2CF570B620817CFF00B9210A /* MainMenuScene.swift in Sources */,
 				2C4B5DEA207BDEFF00E01C5F /* AppDelegate.swift in Sources */,
+				A61E43632083DD1900063397 /* SpriteSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
