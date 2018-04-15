@@ -37,10 +37,10 @@
 		2CEB95FF207EE26400D232F3 /* moon_get-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB95FE207EE23500D232F3 /* moon_get-Heavy.ttf */; };
 		2CF570B420816E8E00B9210A /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF570B320816E8E00B9210A /* GameOverScene.swift */; };
 		2CF570B620817CFF00B9210A /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF570B520817CFF00B9210A /* MainMenuScene.swift */; };
+		A61E43602083D11500063397 /* JetEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = A61E435E2083D11500063397 /* JetEmitter.sks */; };
+		A61E43612083D11500063397 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A61E435F2083D11500063397 /* Assets.xcassets */; };
 		A6FB60F32082D8E3004C3158 /* backgroundMusic.wav in Resources */ = {isa = PBXBuildFile; fileRef = A6FB60F22082D8E3004C3158 /* backgroundMusic.wav */; };
 		A6FB60F72082F9C4004C3158 /* CreditsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FB60F62082F9C4004C3158 /* CreditsScene.swift */; };
-		A6FB60FF20830A59004C3158 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = A6FB60FD20830A59004C3158 /* spark.png */; };
-		A6FB610020830A59004C3158 /* Jet.scnp in Resources */ = {isa = PBXBuildFile; fileRef = A6FB60FE20830A59004C3158 /* Jet.scnp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,10 +97,10 @@
 		2CEB95FE207EE23500D232F3 /* moon_get-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "moon_get-Heavy.ttf"; sourceTree = "<group>"; };
 		2CF570B320816E8E00B9210A /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		2CF570B520817CFF00B9210A /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
+		A61E435E2083D11500063397 /* JetEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = JetEmitter.sks; sourceTree = "<group>"; };
+		A61E435F2083D11500063397 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A6FB60F22082D8E3004C3158 /* backgroundMusic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = backgroundMusic.wav; sourceTree = "<group>"; };
 		A6FB60F62082F9C4004C3158 /* CreditsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsScene.swift; sourceTree = "<group>"; };
-		A6FB60FD20830A59004C3158 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
-		A6FB60FE20830A59004C3158 /* Jet.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Jet.scnp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,8 +226,8 @@
 		A6FB60FA208309D1004C3158 /* Particles */ = {
 			isa = PBXGroup;
 			children = (
-				A6FB60FD20830A59004C3158 /* spark.png */,
-				A6FB60FE20830A59004C3158 /* Jet.scnp */,
+				A61E435E2083D11500063397 /* JetEmitter.sks */,
+				A61E435F2083D11500063397 /* Assets.xcassets */,
 			);
 			path = Particles;
 			sourceTree = "<group>";
@@ -357,17 +357,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A6FB60FF20830A59004C3158 /* spark.png in Resources */,
-				A6FB610020830A59004C3158 /* Jet.scnp in Resources */,
 				2CEB95FF207EE26400D232F3 /* moon_get-Heavy.ttf in Resources */,
 				2C306373207D9A05008D154D /* boomSound.wav in Resources */,
 				2CEB95FD207EDEB500D232F3 /* GoogleService-Info.plist in Resources */,
 				2C4B5DF5207BDEFF00E01C5F /* Main.storyboard in Resources */,
 				2C4B5DEC207BDEFF00E01C5F /* GameScene.sks in Resources */,
 				2C4B5DF7207BDEFF00E01C5F /* Assets.xcassets in Resources */,
+				A61E43602083D11500063397 /* JetEmitter.sks in Resources */,
 				A6FB60F32082D8E3004C3158 /* backgroundMusic.wav in Resources */,
 				2C4B5DFA207BDEFF00E01C5F /* LaunchScreen.storyboard in Resources */,
 				2C4B5E1E207BED9700E01C5F /* laserSound.wav in Resources */,
+				A61E43612083D11500063397 /* Assets.xcassets in Resources */,
 				2C4B5DEE207BDEFF00E01C5F /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

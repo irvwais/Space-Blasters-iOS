@@ -18,7 +18,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // Declare Objects globally to be accessed by any func in class
     var lastUpdateTime: TimeInterval = 0 // store time of last frame
     var deltaTime: TimeInterval = 0 // store the difference in time
-    let amountToMovePerSecond: CGFloat = 600.0 // movement of bakcground per second
+    let amountToMovePerSecond: CGFloat = 300.0 // movement of bakcground per second
     
     let scoreText = SKLabelNode (fontNamed: "Heavy Font") // UIFont(name: "moon_get-Heavy", size: 10)
     
@@ -108,11 +108,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(player) // Add player to the scene
         
         // Jet Particle Effect Settings
-//        let jetPath = Bundle.main.path(forResource: "Jet", ofType: "scnp")
-//        let jet = NSKeyedUnarchiver.unarchiveObject(withFile: jetPath!) as! SKEmitterNode
-//        jet.position = player.position
-//        self.addChild(jet)
-        
+        let jetPath = Bundle.main.path(forResource: "JetEmitter", ofType: "sks")!
+        let jet = NSKeyedUnarchiver.unarchiveObject(withFile: jetPath) as! SKEmitterNode
+        jet.xScale = 5
+        jet.yScale = 5
+        jet.position.y = player.position.y - 30
+        jet.zPosition = 0
+        player.addChild(jet)
         
         // Score Text Settings
         scoreText.text = "Score: 0" // Text for score to display at start of game
@@ -338,23 +340,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if body1.categoryBitMask == PhysicsLayers.Player && body2.categoryBitMask == PhysicsLayers.EnemyLaser {
 
             if body1.node != nil {
-                //spawnExplosion(spawnPosition: body1.node!.position) // spawn explosion at the position of body1 (player ship)
                 loseLives() // lose player lives with each hit from enemy laser
+                if livesCount == 0 { // if player loses all lives from being shot spawn explosion
+                    spawnExplosion(spawnPosition: body1.node!.position) // spawn explosion at the position of body1 (player ship)
+                    body1.node?.removeFromParent() // find the node accosiated with the body1 and delete ii
+                }
             }
 
             // ? (optional) because two bodies of the same layer might make contact at the same time which could crash the game
-            //body1.node?.removeFromParent() // find the node accosiated with the body1 and delete it
             body2.node?.removeFromParent() // find the node accosiated with the body2 and delete it
         }
-    }
-    
-    func createJet (color: UIColor, geometry:SCNGeometry) -> SCNParticleSystem {
-        
-        let jet = SCNParticleSystem(named: "Jet.scnp", inDirectory: nil)!
-        jet.particleColor = color
-        jet.emitterShape = geometry
-        //jet.
-        return jet
     }
     
     func spawnExplosion (spawnPosition: CGPoint) {
@@ -566,13 +561,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let deltaY = endPoint.y - startPoint.y
         let amountToRotate = atan2(deltaY, deltaX)
         enemy.zRotation = amountToRotate
-        
-        // Fire Enemy Laser at Random Time Intervals
-//        let spawnEnemyLaser = SKAction.run(spawnEnemy)
-//        let waitToSpawnEnemyLaser = SKAction.wait(forDuration: 3)
-//        let spawnSequenceEnemyLaser = SKAction.sequence([spawnEnemyLaser, waitToSpawnEnemyLaser])
-//        let spawnForeverEnemyLaser = SKAction.repeatForever(spawnSequenceEnemyLaser)
-//        self.run(spawnForeverEnemyLaser)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -594,6 +582,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if currentGameState == GameState.inGame { // only allow player to move ship if the Current Game State is duringGame
                 player.position.x += amountDragged // add to the player ship position to move
             }
+            
             if player.position.x > gameSpace.maxX - player.size.width / 2 { // If player moves to the maximum right, restrain position before that boarder
                 player.position.x = gameSpace.maxX - player.size.width / 2
             }
