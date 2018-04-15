@@ -12,6 +12,7 @@ import SpriteKit
 class MainMenuScene: SKScene {
     
     let playGameText = SKLabelNode (fontNamed: "Heavy Font")
+    //let creditsText = SKLabelNode (fontNamed: "Heavy Font")
     
     override func didMove(to view: SKView) {
         
@@ -22,15 +23,24 @@ class MainMenuScene: SKScene {
         background.zPosition = 0 // Put Background furthur back
         self.addChild(background) // Add Background to the scene
         
-        // Title Text Settings
-        let titleText = SKLabelNode(fontNamed: "Heavy Font")
+        // Title Text Line 1 Settings
+        let titleTextLine1 = SKLabelNode(fontNamed: "Heavy Font")
         //titleText.numberOfLines = 2
-        titleText.text = "Space \nBlasters 2D" // TODO: fix text to display on two lines
-        titleText.fontSize = 200
-        titleText.fontColor = SKColor.white
-        titleText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.75)
-        titleText.zPosition = 1
-        self.addChild(titleText)
+        titleTextLine1.text = "Space"
+        titleTextLine1.fontSize = 200
+        titleTextLine1.fontColor = SKColor.white
+        titleTextLine1.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.75)
+        titleTextLine1.zPosition = 1
+        self.addChild(titleTextLine1)
+        
+        // Title Text Line 2 Settings
+        let titleTextLine2 = SKLabelNode(fontNamed: "Heavy Font")
+        titleTextLine2.text = "Blasters 2D"
+        titleTextLine2.fontSize = 200
+        titleTextLine2.fontColor = SKColor.white
+        titleTextLine2.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.65)
+        titleTextLine2.zPosition = 1
+        self.addChild(titleTextLine2)
         
         // Play Game Settings
         playGameText.text = "Play"
@@ -39,6 +49,14 @@ class MainMenuScene: SKScene {
         playGameText.zPosition = 1
         playGameText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.5)
         self.addChild(playGameText)
+        
+        // Credits Settings
+//        creditsText.text = "Credits"
+//        creditsText.fontSize = 125
+//        creditsText.fontColor = SKColor.white
+//        creditsText.zPosition = 1
+//        creditsText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.1)
+//        self.addChild(creditsText)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -47,13 +65,21 @@ class MainMenuScene: SKScene {
         
             let pointOfTouch = touch.location(in: self)
             
-            if playGameText.contains(pointOfTouch) {
+            if playGameText.contains(pointOfTouch) { // if player touches play game text load game scene
                 
                 let callScene = GameScene(size: self.size) // make sure game scene is the same size
                 callScene.scaleMode = self.scaleMode // same goes for the scale
                 let sceneTransition = SKTransition.fade(withDuration: 0.5) // transition to scene in set duration
                 self.view!.presentScene(callScene, transition: sceneTransition) // call scene
             }
+            
+//            if creditsText.contains(pointOfTouch) { // if player touches credits text show credits
+//
+//                let callCreditsScene = CreditsScene(size: self.size) // make sure game scene is the same size
+//                callCreditsScene.scaleMode = self.scaleMode // same goes for the scale
+//                let sceneCreditsTransition = SKTransition.fade(withDuration: 0.5) // transition to scene in set duration
+//                self.view!.presentScene(callCreditsScene, transition: sceneCreditsTransition) // call scene
+//            }
         }
     }
 }

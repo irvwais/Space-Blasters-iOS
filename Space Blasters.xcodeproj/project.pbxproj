@@ -37,6 +37,10 @@
 		2CEB95FF207EE26400D232F3 /* moon_get-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB95FE207EE23500D232F3 /* moon_get-Heavy.ttf */; };
 		2CF570B420816E8E00B9210A /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF570B320816E8E00B9210A /* GameOverScene.swift */; };
 		2CF570B620817CFF00B9210A /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF570B520817CFF00B9210A /* MainMenuScene.swift */; };
+		A6FB60F32082D8E3004C3158 /* backgroundMusic.wav in Resources */ = {isa = PBXBuildFile; fileRef = A6FB60F22082D8E3004C3158 /* backgroundMusic.wav */; };
+		A6FB60F72082F9C4004C3158 /* CreditsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FB60F62082F9C4004C3158 /* CreditsScene.swift */; };
+		A6FB60FF20830A59004C3158 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = A6FB60FD20830A59004C3158 /* spark.png */; };
+		A6FB610020830A59004C3158 /* Jet.scnp in Resources */ = {isa = PBXBuildFile; fileRef = A6FB60FE20830A59004C3158 /* Jet.scnp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +97,10 @@
 		2CEB95FE207EE23500D232F3 /* moon_get-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "moon_get-Heavy.ttf"; sourceTree = "<group>"; };
 		2CF570B320816E8E00B9210A /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		2CF570B520817CFF00B9210A /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
+		A6FB60F22082D8E3004C3158 /* backgroundMusic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = backgroundMusic.wav; sourceTree = "<group>"; };
+		A6FB60F62082F9C4004C3158 /* CreditsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsScene.swift; sourceTree = "<group>"; };
+		A6FB60FD20830A59004C3158 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		A6FB60FE20830A59004C3158 /* Jet.scnp */ = {isa = PBXFileReference; lastKnownFileType = file.scp; path = Jet.scnp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +164,9 @@
 		2C4B5DE8207BDEFF00E01C5F /* Space Blasters */ = {
 			isa = PBXGroup;
 			children = (
+				A6FB60FC20830A08004C3158 /* Fonts */,
+				A6FB60FB208309F2004C3158 /* Audio */,
+				A6FB60FA208309D1004C3158 /* Particles */,
 				2CEB95FC207EDEB500D232F3 /* GoogleService-Info.plist */,
 				2C4B5DE9207BDEFF00E01C5F /* AppDelegate.swift */,
 				2C4B5DEB207BDEFF00E01C5F /* GameScene.sks */,
@@ -164,15 +175,13 @@
 				2CF570B320816E8E00B9210A /* GameOverScene.swift */,
 				2C4B5DF1207BDEFF00E01C5F /* GameViewController.swift */,
 				2C4B5DF3207BDEFF00E01C5F /* Main.storyboard */,
-				2C306372207D9A05008D154D /* boomSound.wav */,
-				2C4B5E1D207BED9700E01C5F /* laserSound.wav */,
-				2CEB95FE207EE23500D232F3 /* moon_get-Heavy.ttf */,
 				2C4B5DF6207BDEFF00E01C5F /* Assets.xcassets */,
 				2C4B5DF8207BDEFF00E01C5F /* LaunchScreen.storyboard */,
 				2C4B5DFB207BDEFF00E01C5F /* Info.plist */,
 				2C4B5E1F207BF68000E01C5F /* MathStuff.swift */,
 				2C306370207D8805008D154D /* CollisionDetection.swift */,
 				2CF570B520817CFF00B9210A /* MainMenuScene.swift */,
+				A6FB60F62082F9C4004C3158 /* CreditsScene.swift */,
 			);
 			path = "Space Blasters";
 			sourceTree = "<group>";
@@ -212,6 +221,33 @@
 				2CD29044207EA9F0007F201E /* nanopb.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A6FB60FA208309D1004C3158 /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+				A6FB60FD20830A59004C3158 /* spark.png */,
+				A6FB60FE20830A59004C3158 /* Jet.scnp */,
+			);
+			path = Particles;
+			sourceTree = "<group>";
+		};
+		A6FB60FB208309F2004C3158 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				2C306372207D9A05008D154D /* boomSound.wav */,
+				2C4B5E1D207BED9700E01C5F /* laserSound.wav */,
+				A6FB60F22082D8E3004C3158 /* backgroundMusic.wav */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		A6FB60FC20830A08004C3158 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				2CEB95FE207EE23500D232F3 /* moon_get-Heavy.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,12 +357,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6FB60FF20830A59004C3158 /* spark.png in Resources */,
+				A6FB610020830A59004C3158 /* Jet.scnp in Resources */,
 				2CEB95FF207EE26400D232F3 /* moon_get-Heavy.ttf in Resources */,
 				2C306373207D9A05008D154D /* boomSound.wav in Resources */,
 				2CEB95FD207EDEB500D232F3 /* GoogleService-Info.plist in Resources */,
 				2C4B5DF5207BDEFF00E01C5F /* Main.storyboard in Resources */,
 				2C4B5DEC207BDEFF00E01C5F /* GameScene.sks in Resources */,
 				2C4B5DF7207BDEFF00E01C5F /* Assets.xcassets in Resources */,
+				A6FB60F32082D8E3004C3158 /* backgroundMusic.wav in Resources */,
 				2C4B5DFA207BDEFF00E01C5F /* LaunchScreen.storyboard in Resources */,
 				2C4B5E1E207BED9700E01C5F /* laserSound.wav in Resources */,
 				2C4B5DEE207BDEFF00E01C5F /* Actions.sks in Resources */,
@@ -355,6 +394,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C4B5E20207BF68000E01C5F /* MathStuff.swift in Sources */,
+				A6FB60F72082F9C4004C3158 /* CreditsScene.swift in Sources */,
 				2C4B5DF0207BDEFF00E01C5F /* GameScene.swift in Sources */,
 				2C306371207D8805008D154D /* CollisionDetection.swift in Sources */,
 				2C4B5DF2207BDEFF00E01C5F /* GameViewController.swift in Sources */,

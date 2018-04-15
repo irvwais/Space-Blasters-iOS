@@ -37,7 +37,7 @@ class GameOverScene: SKScene {
         scoreText.text = "Score: \(gameScore)"
         scoreText.fontSize = 125
         scoreText.fontColor = SKColor.white
-        scoreText.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.5)
+        scoreText.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.4)
         scoreText.zPosition = 1
         self.addChild(scoreText)
         
@@ -55,7 +55,7 @@ class GameOverScene: SKScene {
         highScoreText.fontSize = 125
         highScoreText.fontColor = SKColor.white
         highScoreText.zPosition = 1
-        highScoreText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.4)
+        highScoreText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.5)
         self.addChild(highScoreText)
         
         // Play Again Settings
@@ -63,7 +63,7 @@ class GameOverScene: SKScene {
         playAgainText.fontSize = 90
         playAgainText.fontColor = SKColor.white
         playAgainText.zPosition = 1
-        playAgainText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.25)
+        playAgainText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.2)
         self.addChild(playAgainText)
         
         // Main Menu Settings

@@ -6,8 +6,6 @@
 //  Copyright © 2018 Irving Waisman. All rights reserved.
 //
 
-// Test Branch
-
 import SpriteKit
 import GameplayKit
 
@@ -18,10 +16,16 @@ var gameScore = 0 // score count starts at zero
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Declare Objects globally to be accessed by any func in class
-    let scoreText = SKLabelNode(fontNamed: "Heavy Font")
+    var lastUpdateTime: TimeInterval = 0 // store time of last frame
+    var deltaTime: TimeInterval = 0 // store the difference in time
+    let amountToMovePerSecond: CGFloat = 600.0 // movement of bakcground per second
+    
+    let scoreText = SKLabelNode (fontNamed: "Heavy Font") // UIFont(name: "moon_get-Heavy", size: 10)
     
     var livesCount = 5 // player starts with 5 lives
     let livesText = SKLabelNode (fontNamed: "Heavy Font")
+    
+    let tapToPlayText = SKLabelNode(fontNamed: "Heavy Font")
     
     var levelNumber = 0 // variable starts at level 0
     var enemyShipSpeed: Double = 5 // speed for enemy kamikaze ships
@@ -32,19 +36,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var yesSpawnEnemyBoss : Bool = false // flag for spawning enemyBoss
     var enemBossLives = 3 // amount lives for the enemy boss
     
-    let player = SKSpriteNode (imageNamed: "PlayerShip")
+    let player = SKSpriteNode (imageNamed: "PlayerShip1")
     //let enemy = SKSpriteNode(imageNamed: "EnemyShip")
+    
+    // Sound FX
     let laserSound = SKAction.playSoundFileNamed("laserSound.wav", waitForCompletion: false)
     let boomSound = SKAction.playSoundFileNamed("boomSound.wav", waitForCompletion: false)
     
     enum GameState: Int {
         
         case preGame = 0 // When Game State is before the start of the game
-        case duringGame = 1 // When Game State is running
+        case inGame = 1 // When Game State is running and we are in game
         case postGame = 2 // When Game State is after playing game (Game Over)
     }
     
-    var currentGameState = GameState.duringGame // store current game state
+    var currentGameState = GameState.preGame // store current game state, intial state is preGame (Main Menu)
     
     struct PhysicsLayers {
         
@@ -79,16 +85,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.physicsWorld.contactDelegate = self // Set Up Physics to be delegated to this class
         
-        // Background Settings
-        let background = SKSpriteNode (imageNamed: "Background1")
-        background.size = self.size // Set Size of Background as the same size of the scene
-        background.position = CGPoint (x: self.size.width / 2, y: self.size.height / 2)
-        background.zPosition = 0 // Put Background furthur back
-        self.addChild(background) // Add Background to the scene
+        for i in 0...1 { // Loop through background settings twice to create two backgrounds
+            // Background Settings
+            let background = SKSpriteNode (imageNamed: "Background1")
+            background.name = "BackgroundRef" // Refernce name for Background
+            background.size = self.size // Set Size of Background as the same size of the scene
+            background.anchorPoint = CGPoint (x: 0.5, y: 0) // make anchor point of the background the bottom of the screen
+            background.position = CGPoint (x: self.size.width / 2, y: self.size.height * CGFloat (i)) // first loop will make y position same as anchor point, second loop will make position at the top of the screen
+            background.zPosition = 0 // Put Background furthur back
+            self.addChild(background) // Add Background to the scene
+        }
         
         // Player Settings
         player.setScale(0.2) // Size of Player Ship Image (1) being normal size
-        player.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.2) // Start player at 20% from the bottom of screen
+        player.position = CGPoint (x: self.size.width / 2, y: 0 - player.size.height) // Start player just off the bottom of screen
         player.zPosition = 2
         player.physicsBody = SKPhysicsBody(rectangleOf: player.size) // add physicsBody (Collision Detection Box) to the size of player ship
         player.physicsBody!.affectedByGravity = false // make sure the attached physicsBody does not use gravity to pull player down
@@ -97,12 +107,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody!.contactTestBitMask = PhysicsLayers.Enemy //| PhysicsLayers.EnemyLaser // player phyiscs layer can make contact with phyiscs layers of enemy and enemyLaser
         self.addChild(player) // Add player to the scene
         
+        // Jet Particle Effect Settings
+//        let jetPath = Bundle.main.path(forResource: "Jet", ofType: "scnp")
+//        let jet = NSKeyedUnarchiver.unarchiveObject(withFile: jetPath!) as! SKEmitterNode
+//        jet.position = player.position
+//        self.addChild(jet)
+        
+        
         // Score Text Settings
         scoreText.text = "Score: 0" // Text for score to display at start of game
         scoreText.fontSize = 70 // Size of Score Text
         scoreText.fontColor = SKColor.white // Colour of Score text
         scoreText.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.left // Make sure that if score increases that text is stuck to the left of screen
-        scoreText.position = CGPoint(x: self.size.width * 0.15, y: self.size.height * 0.9) // position of score text
+        scoreText.position = CGPoint(x: self.size.width * 0.15, y: self.size.height + scoreText.frame.size.height) // position of score text
         scoreText.zPosition = 50 // High z position to gurantee that score is always on top of gameplay
         self.addChild(scoreText) // add score text to scene
         
@@ -111,11 +128,70 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         livesText.fontSize = 70
         livesText.fontColor = SKColor.white
         livesText.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
-        livesText.position = CGPoint(x: self.size.width * 0.85, y: self.size.height * 0.9) // position of score text
+        livesText.position = CGPoint(x: self.size.width * 0.85, y: self.size.height + livesText.frame.size.height) // position of score text
         livesText.zPosition = 50 // High z position to gurantee that score is always on top of gameplay
         self.addChild(livesText) // add score text to scene
         
-        startLevel()
+        // Move Socre Text and Lives Text into view of Screen
+        let moveOnToScreen = SKAction.moveTo(y: self.size.height * 0.9, duration: 0.5)
+        scoreText.run(moveOnToScreen)
+        livesText.run(moveOnToScreen)
+        
+        // Tap to Play Text Settings
+        tapToPlayText.text = "Tap to Play"
+        tapToPlayText.fontSize = 100
+        tapToPlayText.fontColor = SKColor.white
+        tapToPlayText.zPosition = 1
+        tapToPlayText.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+        tapToPlayText.alpha = 0
+        self.addChild(tapToPlayText)
+        
+        let fadeInTapToPlayText = SKAction.fadeIn(withDuration: 0.5)
+        tapToPlayText.run(fadeInTapToPlayText)
+        
+        //startLevel()
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        
+        if lastUpdateTime == 0 {
+            lastUpdateTime = currentTime // make the intial time the same as current time
+        } else {
+            deltaTime = currentTime - lastUpdateTime // the change in time from intial frame to last frame
+            lastUpdateTime = currentTime
+        }
+        
+        let amountToMoveBackground = amountToMovePerSecond * CGFloat(deltaTime)
+        
+        // Paralax Background
+        self.enumerateChildNodes(withName: "BackgroundRef") {
+            background, stop in
+            
+            if self.currentGameState == GameState.inGame { // only move background if the game is in session
+                background.position.y -= amountToMoveBackground
+            }
+            
+            if background.position.y < -self.size.height {
+                background.position.y += self.size.height * 2
+            }
+        }
+    }
+    
+    func startGame () {
+        
+        currentGameState = GameState.inGame // change state of game to in game (playing game)
+        
+        // Run code to fade out Tap to Play Text
+        let fadeOut = SKAction.fadeOut(withDuration: 0.5)
+        let delete = SKAction.removeFromParent()
+        let deleteSequence = SKAction.sequence([fadeOut, delete])
+        tapToPlayText.run(deleteSequence)
+        
+        // Run code to Move player ship onto the Screen and start the first level
+        let movePlayerOntoScreen = SKAction.moveTo(y: self.size.height * 0.2 , duration: 0.5)
+        let startLevelAction = SKAction.run(startLevel)
+        let startGameSequence = SKAction.sequence([movePlayerOntoScreen, startLevelAction])
+        player.run(startGameSequence)
     }
     
     func addScore () {
@@ -144,7 +220,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Animate lives text to make player pay attention to live count
         let scaleUp = SKAction.scale(to: 1.5, duration: 0.3)
         let scaleDown = SKAction.scale(to: 1, duration: 0.3)
-        let scaleTextSequence = SKAction.sequence([scaleUp, scaleDown])
+        let changeColor = SKAction.colorize(with: UIColor.red, colorBlendFactor: 1, duration: 0)
+        let returnColor = SKAction.colorize(with: UIColor.white, colorBlendFactor: 1, duration: 0)
+        let scaleTextSequence = SKAction.sequence([changeColor, scaleUp, scaleDown, returnColor])
         livesText.run(scaleTextSequence)
         
         if livesCount == 0 {
@@ -239,7 +317,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         // if playerLaser and enemy boss have made contact and enemy is on the screen
-        if body1.categoryBitMask == PhysicsLayers.PlayerLaser && body2.categoryBitMask == PhysicsLayers.EnemyBoss {
+        if body1.categoryBitMask == PhysicsLayers.PlayerLaser && body2.categoryBitMask == PhysicsLayers.EnemyBoss && (body2.node?.position.y)! < self.size.height {
             
             enemBossLives -= 1 // decrease enemy boss life
             
@@ -268,6 +346,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             //body1.node?.removeFromParent() // find the node accosiated with the body1 and delete it
             body2.node?.removeFromParent() // find the node accosiated with the body2 and delete it
         }
+    }
+    
+    func createJet (color: UIColor, geometry:SCNGeometry) -> SCNParticleSystem {
+        
+        let jet = SCNParticleSystem(named: "Jet.scnp", inDirectory: nil)!
+        jet.particleColor = color
+        jet.emitterShape = geometry
+        //jet.
+        return jet
     }
     
     func spawnExplosion (spawnPosition: CGPoint) {
@@ -319,18 +406,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case 6: // Level 6
             spawnEnemyDuration = 1.5
             enemyShipSpeed = 3.3
+            yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         case 7: // Level 7
             spawnEnemyDuration = 1.3
             enemyShipSpeed = 3.0
         case 8: // Level 8
             spawnEnemyDuration = 1
             enemyShipSpeed = 2.8
+            yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         case 9: // Level 9
             spawnEnemyDuration = 0.8
             enemyShipSpeed = 2.5
         case 10: // Level 10
             spawnEnemyDuration = 0.5
             enemyShipSpeed = 2
+            yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         default:
             spawnEnemyDuration = 3
             print("Spawn Enemy for each level ERROR!")
@@ -407,7 +497,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let enemyBoss = SKSpriteNode(imageNamed: "BossShip")
         enemyBoss.name = "EnemyBossRef" // Reference for Enemy Boss
         enemyBoss.setScale(1.5) // Set scale of enemy Boss (1) being normal
-        enemyBoss.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.8) // spawn enemy boss at top of screen
+        enemyBoss.position = CGPoint (x: self.size.width / 2, y: self.size.height * 1.2) // spawn enemy boss just above top of screen
         enemyBoss.zPosition = 2 // zPosition of enemy boss
         enemyBoss.physicsBody = SKPhysicsBody(rectangleOf: enemyBoss.size) // add physicsBody (Collision Detection Box) to the size of enemy boss
         enemyBoss.physicsBody!.affectedByGravity = false // make sure the attached physicsBody does not use gravity to pull enemyBoss down
@@ -424,11 +514,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if !yesSpawnEnemyBoss {
             enemyBoss.run(deleteEnemyBoss)
         } else {
-            let enemyBossSequence = SKAction.sequence([fireLaser, moveEnemyBossLeft, fireLaser, moveEnemyBossRight, fireLaser]) // sequence of enemy boss
+            let enemyBossSequence = SKAction.sequence([moveEnemyBossLeft, moveEnemyBossRight]) // sequence of enemy boss movment
             let moveEnemyBossWhileAlive = SKAction.repeatForever(enemyBossSequence) // move enemy boss while it has lives
             
-            if currentGameState == GameState.duringGame { // only this sequence if game is actually running
+            // Fire Enemy Laser at Random Time Intervals
+            let waitToShootEnemyLaser = SKAction.wait(forDuration: 3, withRange: 1) //wait(forDuration: randomFireLaser)
+            let spawnSequenceEnemyLaser = SKAction.sequence([fireLaser, waitToShootEnemyLaser])
+            let spawnForeverEnemyLaser = SKAction.repeatForever(spawnSequenceEnemyLaser)
+            
+            if currentGameState == GameState.inGame { // only this sequence if game is actually running
                 enemyBoss.run(moveEnemyBossWhileAlive)
+                //if enemyBoss.position.y < self.size.height { // only when in correct position fire enemy laser
+                    enemyBoss.run(spawnForeverEnemyLaser)
+                //}
             }
         }
     }
@@ -459,7 +557,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let enemyPassedPlayer = SKAction.run(loseLives) // if enemy ship flies past the player run method loseLives
         let enemySequence = SKAction.sequence([moveEnemy, deleteEnemy, enemyPassedPlayer]) // sequence of enemy ship
         
-        if currentGameState == GameState.duringGame { // only this sequence if game is actually running
+        if currentGameState == GameState.inGame { // only this sequence if game is actually running
             enemy.run(enemySequence)
         }
         
@@ -479,7 +577,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        if currentGameState == GameState.duringGame { // only allow player to shoot laser if the Current Game State is duringGame
+        if currentGameState == GameState.preGame { // if the game state is pre game start the game
+            startGame()
+        } else if currentGameState == GameState.inGame { // only allow player to shoot laser if the Current Game State is duringGame
             firePlayerLaser()
         }
     }
@@ -491,7 +591,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let previousPointOfTouch = touch.previousLocation(in: self) // where player was touching the screen
             let amountDragged = pointOfTouch.x - previousPointOfTouch.x // get the difference
             
-            if currentGameState == GameState.duringGame { // only allow player to move ship if the Current Game State is duringGame
+            if currentGameState == GameState.inGame { // only allow player to move ship if the Current Game State is duringGame
                 player.position.x += amountDragged // add to the player ship position to move
             }
             if player.position.x > gameSpace.maxX - player.size.width / 2 { // If player moves to the maximum right, restrain position before that boarder
