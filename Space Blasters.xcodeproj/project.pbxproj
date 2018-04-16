@@ -20,7 +20,7 @@
 		2C4B5E05207BDEFF00E01C5F /* Space_BlastersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4B5E04207BDEFF00E01C5F /* Space_BlastersTests.swift */; };
 		2C4B5E10207BDEFF00E01C5F /* Space_BlastersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4B5E0F207BDEFF00E01C5F /* Space_BlastersUITests.swift */; };
 		2C4B5E1E207BED9700E01C5F /* laserSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C4B5E1D207BED9700E01C5F /* laserSound.wav */; };
-		2C4B5E20207BF68000E01C5F /* MathStuff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4B5E1F207BF68000E01C5F /* MathStuff.swift */; };
+		2C4B5E20207BF68000E01C5F /* CGFloatRandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4B5E1F207BF68000E01C5F /* CGFloatRandom.swift */; };
 		2CD2904B207EA9F1007F201E /* nanopb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD29044207EA9F0007F201E /* nanopb.framework */; };
 		2CD2904C207EA9F1007F201E /* GoogleToolboxForMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD29045207EA9F0007F201E /* GoogleToolboxForMac.framework */; };
 		2CD2904D207EA9F1007F201E /* FirebaseAnalytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CD29046207EA9F1007F201E /* FirebaseAnalytics.framework */; };
@@ -81,7 +81,7 @@
 		2C4B5E0F207BDEFF00E01C5F /* Space_BlastersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Space_BlastersUITests.swift; sourceTree = "<group>"; };
 		2C4B5E11207BDEFF00E01C5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C4B5E1D207BED9700E01C5F /* laserSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = laserSound.wav; sourceTree = "<group>"; };
-		2C4B5E1F207BF68000E01C5F /* MathStuff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MathStuff.swift; sourceTree = "<group>"; };
+		2C4B5E1F207BF68000E01C5F /* CGFloatRandom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloatRandom.swift; sourceTree = "<group>"; };
 		2CD29044207EA9F0007F201E /* nanopb.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = nanopb.framework; sourceTree = "<group>"; };
 		2CD29045207EA9F0007F201E /* GoogleToolboxForMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleToolboxForMac.framework; sourceTree = "<group>"; };
 		2CD29046207EA9F1007F201E /* FirebaseAnalytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FirebaseAnalytics.framework; sourceTree = "<group>"; };
@@ -166,6 +166,11 @@
 		2C4B5DE8207BDEFF00E01C5F /* Space Blasters */ = {
 			isa = PBXGroup;
 			children = (
+				A61E43752084302300063397 /* Physics */,
+				A61E43742084301200063397 /* SpriteAnimations */,
+				A61E43732084300300063397 /* Controllers */,
+				A61E437220842FEE00063397 /* Scenes */,
+				A61E437020842FC200063397 /* Math */,
 				A6FB60FC20830A08004C3158 /* Fonts */,
 				A6FB60FB208309F2004C3158 /* Audio */,
 				A6FB60FA208309D1004C3158 /* Particles */,
@@ -173,18 +178,10 @@
 				2C4B5DE9207BDEFF00E01C5F /* AppDelegate.swift */,
 				2C4B5DEB207BDEFF00E01C5F /* GameScene.sks */,
 				2C4B5DED207BDEFF00E01C5F /* Actions.sks */,
-				2C4B5DEF207BDEFF00E01C5F /* GameScene.swift */,
-				2CF570B320816E8E00B9210A /* GameOverScene.swift */,
-				2C4B5DF1207BDEFF00E01C5F /* GameViewController.swift */,
 				2C4B5DF3207BDEFF00E01C5F /* Main.storyboard */,
 				2C4B5DF6207BDEFF00E01C5F /* Assets.xcassets */,
 				2C4B5DF8207BDEFF00E01C5F /* LaunchScreen.storyboard */,
 				2C4B5DFB207BDEFF00E01C5F /* Info.plist */,
-				2C4B5E1F207BF68000E01C5F /* MathStuff.swift */,
-				2C306370207D8805008D154D /* CollisionDetection.swift */,
-				2CF570B520817CFF00B9210A /* MainMenuScene.swift */,
-				A6FB60F62082F9C4004C3158 /* CreditsScene.swift */,
-				A61E43622083DD1900063397 /* SpriteSheet.swift */,
 			);
 			path = "Space Blasters";
 			sourceTree = "<group>";
@@ -224,6 +221,49 @@
 				2CD29044207EA9F0007F201E /* nanopb.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A61E437020842FC200063397 /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				2C4B5E1F207BF68000E01C5F /* CGFloatRandom.swift */,
+			);
+			path = Math;
+			sourceTree = "<group>";
+		};
+		A61E437220842FEE00063397 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				2C4B5DEF207BDEFF00E01C5F /* GameScene.swift */,
+				2CF570B320816E8E00B9210A /* GameOverScene.swift */,
+				2CF570B520817CFF00B9210A /* MainMenuScene.swift */,
+				A6FB60F62082F9C4004C3158 /* CreditsScene.swift */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		A61E43732084300300063397 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2C4B5DF1207BDEFF00E01C5F /* GameViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		A61E43742084301200063397 /* SpriteAnimations */ = {
+			isa = PBXGroup;
+			children = (
+				A61E43622083DD1900063397 /* SpriteSheet.swift */,
+			);
+			path = SpriteAnimations;
+			sourceTree = "<group>";
+		};
+		A61E43752084302300063397 /* Physics */ = {
+			isa = PBXGroup;
+			children = (
+				2C306370207D8805008D154D /* CollisionDetection.swift */,
+			);
+			path = Physics;
 			sourceTree = "<group>";
 		};
 		A6FB60FA208309D1004C3158 /* Particles */ = {
@@ -396,7 +436,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C4B5E20207BF68000E01C5F /* MathStuff.swift in Sources */,
+				2C4B5E20207BF68000E01C5F /* CGFloatRandom.swift in Sources */,
 				A6FB60F72082F9C4004C3158 /* CreditsScene.swift in Sources */,
 				2C4B5DF0207BDEFF00E01C5F /* GameScene.swift in Sources */,
 				2C306371207D8805008D154D /* CollisionDetection.swift in Sources */,

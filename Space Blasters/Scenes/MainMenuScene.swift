@@ -67,6 +67,10 @@ class MainMenuScene: SKScene {
             
             if playGameText.contains(pointOfTouch) { // if player touches play game text load game scene
                 
+                // Green Text to Show the Player they Clicked the Text
+                let changeTextColor = SKAction.colorize(with: UIColor.green, colorBlendFactor: 1, duration: 0)
+                playGameText.run(changeTextColor)
+                
                 let callScene = GameScene(size: self.size) // make sure game scene is the same size
                 callScene.scaleMode = self.scaleMode // same goes for the scale
                 let sceneTransition = SKTransition.fade(withDuration: 0.5) // transition to scene in set duration
