@@ -28,7 +28,7 @@ class GameOverScene: SKScene {
         gameOverText.text = "Game Over"
         gameOverText.fontSize = 200
         gameOverText.fontColor = SKColor.white
-        gameOverText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.75)
+        gameOverText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.85)
         gameOverText.zPosition = 1
         self.addChild(gameOverText)
         
@@ -37,17 +37,17 @@ class GameOverScene: SKScene {
         scoreText.text = "Score: \(gameScore)"
         scoreText.fontSize = 125
         scoreText.fontColor = SKColor.white
-        scoreText.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.4)
+        scoreText.position = CGPoint(x: self.size.width / 2, y: self.size.height * 0.6)
         scoreText.zPosition = 1
         self.addChild(scoreText)
         
         // High Score Settings
-        let defaults = UserDefaults ()
-        var highScoreNumber = defaults.integer(forKey: "highScoreSaved")
+        let defaultsScore = UserDefaults ()
+        var highScoreNumber = defaultsScore.integer(forKey: "highScoreSaved")
         
         if gameScore > highScoreNumber { // if current score is greater than the high score
             highScoreNumber = gameScore // set new high score
-            defaults.set(highScoreNumber, forKey: "highScoreSaved") // save as new high score
+            defaultsScore.set(highScoreNumber, forKey: "highScoreSaved") // save as new high score
         }
         
         let highScoreText = SKLabelNode(fontNamed: "Heavy Font")
@@ -55,15 +55,72 @@ class GameOverScene: SKScene {
         highScoreText.fontSize = 125
         highScoreText.fontColor = SKColor.white
         highScoreText.zPosition = 1
-        highScoreText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.5)
+        highScoreText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.7)
         self.addChild(highScoreText)
+        
+        // Enemy Bosses Killed Count Settings
+        let defaultsBossKills = UserDefaults ()
+        var bossKillNumber = defaultsBossKills.integer(forKey: "bossKillsSaved")
+        bossKillNumber = enemyBossesKilled
+        defaultsBossKills.set(bossKillNumber, forKey: "bossKillsSaved") // save as new count for boss kills
+        
+        let bossKillsText = SKLabelNode(fontNamed: "Heavy Font")
+        bossKillsText.text = "Kills: \(bossKillNumber)"
+        bossKillsText.fontSize = 80
+        bossKillsText.fontColor = SKColor.white
+        bossKillsText.zPosition = 1
+        bossKillsText.position = CGPoint (x: self.size.width * 0.63, y: self.size.height * 0.49)
+        self.addChild(bossKillsText)
+        
+        // Enemy Boss Image
+        let enemyBossDisplay = SKSpriteNode(imageNamed: "BossShip")
+        enemyBossDisplay.setScale(0.8) // Set scale of enemy Boss (1) being normal
+        enemyBossDisplay.position = CGPoint (x: self.size.width * 0.4, y: self.size.height * 0.5)
+        enemyBossDisplay.zPosition = 1
+        self.addChild(enemyBossDisplay)
+        let scaleUp = SKAction.scale(to: 1.3, duration: 1)
+        let scaleDown = SKAction.scale(to: 0.8, duration: 1)
+        let enemyBossDisplaySeq = SKAction.sequence([scaleUp, scaleDown])
+        let repeatDisplayForever = SKAction.repeatForever(enemyBossDisplaySeq)
+        enemyBossDisplay.run(repeatDisplayForever)
+        
+        // Enemy Passed Count Settings
+        let defaultsEnemyPassed = UserDefaults ()
+        var enemyPassedNumber = defaultsEnemyPassed.integer(forKey: "enemyPassedSaved")
+        enemyPassedNumber = enemyLetThroughCount
+        defaultsEnemyPassed.set(enemyPassedNumber, forKey: "enemyPassedSaved") // save as new count for enemy passed
+        
+        let enemyPassedText = SKLabelNode(fontNamed: "Heavy Font")
+        enemyPassedText.text = "Passed: \(enemyPassedNumber)"
+        enemyPassedText.fontSize = 80
+        enemyPassedText.fontColor = SKColor.white
+        enemyPassedText.zPosition = 1
+        enemyPassedText.position = CGPoint (x: self.size.width * 0.63, y: self.size.height * 0.35)
+        self.addChild(enemyPassedText)
+        
+        // Enemy Ship Image
+        let enemyShipDisplay = SKSpriteNode(imageNamed: "EnemyShip")
+        enemyShipDisplay.setScale(0.3) // Set scale of enemy Boss (1) being normal
+        enemyShipDisplay.position = CGPoint (x: self.size.width * 0.4, y: self.size.height * 0.35)
+        enemyShipDisplay.zPosition = 1
+        self.addChild(enemyShipDisplay)
+        //let scaleShipUp = SKAction.scale(to: 0.8, duration: 1)
+        //let scaleShipDown = SKAction.scale(to: 0.3, duration: 1)
+        let displayDeltaX = SKAction.rotate(byAngle: 2, duration: 1) //: Double = 30
+        let displatDeltaY = SKAction.rotate(byAngle: -2, duration: 1)//: Double = -30
+        //let amountToRotateDisplay = atan2(displatDeltaY, displayDeltaX)
+        
+        
+        let enemyShipDisplaySeq = SKAction.sequence([displatDeltaY, displayDeltaX])
+        let repeatShipDisplayForever = SKAction.repeatForever(enemyShipDisplaySeq)
+        enemyShipDisplay.run(repeatShipDisplayForever)
         
         // Play Again Settings
         playAgainText.text = "Play Again"
         playAgainText.fontSize = 90
         playAgainText.fontColor = SKColor.white
         playAgainText.zPosition = 1
-        playAgainText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.2)
+        playAgainText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.15)
         self.addChild(playAgainText)
         
         // Main Menu Settings
@@ -71,7 +128,7 @@ class GameOverScene: SKScene {
         mainMenuText.fontSize = 90
         mainMenuText.fontColor = SKColor.white
         mainMenuText.zPosition = 1
-        mainMenuText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.1)
+        mainMenuText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.05)
         self.addChild(mainMenuText)
     }
     

@@ -29,7 +29,7 @@ class MainMenuScene: SKScene {
         titleTextLine1.text = "Space"
         titleTextLine1.fontSize = 200
         titleTextLine1.fontColor = SKColor.white
-        titleTextLine1.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.75)
+        titleTextLine1.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.85)
         titleTextLine1.zPosition = 1
         self.addChild(titleTextLine1)
         
@@ -38,9 +38,18 @@ class MainMenuScene: SKScene {
         titleTextLine2.text = "Blasters 2D"
         titleTextLine2.fontSize = 200
         titleTextLine2.fontColor = SKColor.white
-        titleTextLine2.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.65)
+        titleTextLine2.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.75)
         titleTextLine2.zPosition = 1
         self.addChild(titleTextLine2)
+        
+        // Title Text Line 3 Settings
+        let titleTextLine3 = SKLabelNode(fontNamed: "Heavy Font")
+        titleTextLine3.text = "A Game by: Irving Waisman"
+        titleTextLine3.fontSize = 50
+        titleTextLine3.fontColor = SKColor.white
+        titleTextLine3.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.7)
+        titleTextLine3.zPosition = 1
+        self.addChild(titleTextLine3)
         
         // Play Game Settings
         playGameText.text = "Play"
@@ -49,6 +58,8 @@ class MainMenuScene: SKScene {
         playGameText.zPosition = 1
         playGameText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.5)
         self.addChild(playGameText)
+        
+        // Top 3 Score Settings 
         
         // Credits Settings
 //        creditsText.text = "Credits"

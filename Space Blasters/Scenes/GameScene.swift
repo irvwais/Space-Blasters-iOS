@@ -11,7 +11,8 @@ import GameplayKit
 
 // Declare Objects Globally to be Accessed By any Class in the Project
 var gameScore = 0 // score count starts at zero
-
+var enemyLetThroughCount = 0 // Counter that tracks how many enemies got passed you
+var enemyBossesKilled = 0 // count for enemy bosses killed
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -24,6 +25,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var livesCount = 5 // player starts with 5 lives
     let livesText = SKLabelNode (fontNamed: "Heavy Font")
+    
+    let enemyLetThroughText = SKLabelNode (fontNamed: "Heavy Font")
     
     let tapToPlayText = SKLabelNode(fontNamed: "Heavy Font")
     
@@ -82,6 +85,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func didMove (to view: SKView) {
         
         gameScore = 0 // Reset game score back to zero
+        enemyBossesKilled = 0 // Reset Enemy Bosses Killed Count back to zero
+        enemyLetThroughCount = 0 // Reset Enemy Let Through Count back to zero
         
         self.physicsWorld.contactDelegate = self // Set Up Physics to be delegated to this class
         
@@ -138,6 +143,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let moveOnToScreen = SKAction.moveTo(y: self.size.height * 0.9, duration: 0.5)
         scoreText.run(moveOnToScreen)
         livesText.run(moveOnToScreen)
+        
+        // Count For Enemies Passed Text Settings
+        enemyLetThroughText.text = "0" // Text for score to display at start of game
+        enemyLetThroughText.fontSize = 70 // Size of Score Text
+        enemyLetThroughText.fontColor = SKColor.white // Colour of Score text
+        enemyLetThroughText.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right // Make sure that if score increases that text is stuck to the left of screen
+        enemyLetThroughText.position = CGPoint(x: self.size.width * 0.2, y: -self.size.height + enemyLetThroughText.frame.size.height) // position of score text
+        enemyLetThroughText.zPosition = 50 // High z position to gurantee that score is always on top of gameplay
+        self.addChild(enemyLetThroughText) // add score text to scene
+        
+        // Move Socre Text and Lives Text into view of Screen
+        let moveOnToTopTextScreen = SKAction.moveTo(y: self.size.height * 0.05, duration: 0.5)
+        enemyLetThroughText.run(moveOnToTopTextScreen)
         
         // Tap to Play Text Settings
         tapToPlayText.text = "Tap to Play"
@@ -201,6 +219,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         gameScore += 10
         scoreText.text = "Score: \(gameScore)"
         
+        let scaleUp = SKAction.scale(to: 1.5, duration: 0.3)
+        let scaleDown = SKAction.scale(to: 1, duration: 0.3)
+        let changeColor = SKAction.colorize(with: UIColor.blue, colorBlendFactor: 1, duration: 0)
+        let returnColor = SKAction.colorize(with: UIColor.white, colorBlendFactor: 1, duration: 0)
+        let scaleTextSequence = SKAction.sequence([changeColor, scaleUp, scaleDown, returnColor])
+        scoreText.run(scaleTextSequence)
+        
         if gameScore == 50 || // if score reaches 50 start level 2
             gameScore == 100 || // if score reaches 100 start level 3
             gameScore == 150 || // if score reaches 150 start level 4
@@ -230,6 +255,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if livesCount == 0 {
             runGameOver()
         }
+    }
+    
+    func countForEnemiesPassed () {
+        
+        enemyLetThroughCount += 1
+        enemyLetThroughText.text = "\(enemyLetThroughCount)"
+        
+        let scaleUp = SKAction.scale(to: 1.5, duration: 0.3)
+        let scaleDown = SKAction.scale(to: 1, duration: 0.3)
+        let changeColor = SKAction.colorize(with: UIColor.red, colorBlendFactor: 1, duration: 0)
+        let returnColor = SKAction.colorize(with: UIColor.white, colorBlendFactor: 1, duration: 0)
+        let scaleTextSequence = SKAction.sequence([changeColor, scaleUp, scaleDown, returnColor])
+        enemyLetThroughText.run(scaleTextSequence)
     }
     
     func runGameOver () {
@@ -326,7 +364,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if body2.node != nil && enemBossLives == 0 {
                 addScore() // call add score method when player shoots enemy boss
                 body2.node?.removeFromParent() // find the node accosiated with the body2 and delete it
-                enemBossLives = 3 // reset enemy boss lives to 3
+                enemyBossesKilled += 1 // increase count for enemy bosses killed
                 yesSpawnEnemyBoss = false
                 spawnExplosion(spawnPosition: body2.node!.position) // spawn explosion at the position of body2 (enemy boss)
             }
@@ -394,6 +432,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case 4: // Level 4
             spawnEnemyDuration = 2.0
             enemyShipSpeed = 4.0
+            enemyBossSpeed = 4
+            enemBossLives = 5 // reset enemy boss lives to 5
             yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         case 5: // Level 5
             spawnEnemyDuration = 1.8
@@ -401,6 +441,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case 6: // Level 6
             spawnEnemyDuration = 1.5
             enemyShipSpeed = 3.3
+            enemyBossSpeed = 3
+            enemBossLives = 7 // reset enemy boss lives to 7
             yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         case 7: // Level 7
             spawnEnemyDuration = 1.3
@@ -408,6 +450,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case 8: // Level 8
             spawnEnemyDuration = 1
             enemyShipSpeed = 2.8
+            enemyBossSpeed = 2
+            enemBossLives = 9 // reset enemy boss lives to 9
             yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         case 9: // Level 9
             spawnEnemyDuration = 0.8
@@ -415,6 +459,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         case 10: // Level 10
             spawnEnemyDuration = 0.5
             enemyShipSpeed = 2
+            enemyBossSpeed = 1
+            enemBossLives = 5 // reset enemy boss lives to 12
             yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         default:
             spawnEnemyDuration = 3
@@ -549,7 +595,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let moveEnemy = SKAction.move(to: endPoint, duration: enemyShipSpeed) // Move enemy ship to endPoint in set seconds
         let deleteEnemy = SKAction.removeFromParent() // delete enemy
-        let enemyPassedPlayer = SKAction.run(loseLives) // if enemy ship flies past the player run method loseLives
+        let enemyPassedPlayer = SKAction.run(countForEnemiesPassed) // if enemy ship flies past the player run method count for enemies passed
         let enemySequence = SKAction.sequence([moveEnemy, deleteEnemy, enemyPassedPlayer]) // sequence of enemy ship
         
         if currentGameState == GameState.inGame { // only this sequence if game is actually running
