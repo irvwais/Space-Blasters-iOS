@@ -65,7 +65,7 @@ class GameOverScene: SKScene {
         defaultsBossKills.set(bossKillNumber, forKey: "bossKillsSaved") // save as new count for boss kills
         
         let bossKillsText = SKLabelNode(fontNamed: "Heavy Font")
-        bossKillsText.text = "Kills: \(bossKillNumber)"
+        bossKillsText.text = "Killed: \(bossKillNumber)"
         bossKillsText.fontSize = 80
         bossKillsText.fontColor = SKColor.white
         bossKillsText.zPosition = 1

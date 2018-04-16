@@ -15,7 +15,6 @@
 		2C4B5DF0207BDEFF00E01C5F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4B5DEF207BDEFF00E01C5F /* GameScene.swift */; };
 		2C4B5DF2207BDEFF00E01C5F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4B5DF1207BDEFF00E01C5F /* GameViewController.swift */; };
 		2C4B5DF5207BDEFF00E01C5F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C4B5DF3207BDEFF00E01C5F /* Main.storyboard */; };
-		2C4B5DF7207BDEFF00E01C5F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C4B5DF6207BDEFF00E01C5F /* Assets.xcassets */; };
 		2C4B5DFA207BDEFF00E01C5F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C4B5DF8207BDEFF00E01C5F /* LaunchScreen.storyboard */; };
 		2C4B5E05207BDEFF00E01C5F /* Space_BlastersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4B5E04207BDEFF00E01C5F /* Space_BlastersTests.swift */; };
 		2C4B5E10207BDEFF00E01C5F /* Space_BlastersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4B5E0F207BDEFF00E01C5F /* Space_BlastersUITests.swift */; };
@@ -40,6 +39,9 @@
 		A61E43602083D11500063397 /* JetEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = A61E435E2083D11500063397 /* JetEmitter.sks */; };
 		A61E43612083D11500063397 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A61E435F2083D11500063397 /* Assets.xcassets */; };
 		A61E43632083DD1900063397 /* SpriteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61E43622083DD1900063397 /* SpriteSheet.swift */; };
+		A61E438320846D3100063397 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A61E438220846D3000063397 /* Assets.xcassets */; };
+		A61E438E2084729500063397 /* PlayerLasersImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = A61E438C2084729500063397 /* PlayerLasersImages.atlas */; };
+		A61E438F2084729500063397 /* EnemyLasersImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = A61E438D2084729500063397 /* EnemyLasersImages.atlas */; };
 		A6FB60F32082D8E3004C3158 /* backgroundMusic.wav in Resources */ = {isa = PBXBuildFile; fileRef = A6FB60F22082D8E3004C3158 /* backgroundMusic.wav */; };
 		A6FB60F72082F9C4004C3158 /* CreditsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FB60F62082F9C4004C3158 /* CreditsScene.swift */; };
 /* End PBXBuildFile section */
@@ -71,7 +73,6 @@
 		2C4B5DEF207BDEFF00E01C5F /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		2C4B5DF1207BDEFF00E01C5F /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		2C4B5DF4207BDEFF00E01C5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		2C4B5DF6207BDEFF00E01C5F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C4B5DF9207BDEFF00E01C5F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C4B5DFB207BDEFF00E01C5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2C4B5E00207BDEFF00E01C5F /* Space BlastersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Space BlastersTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,6 +102,9 @@
 		A61E435E2083D11500063397 /* JetEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = JetEmitter.sks; sourceTree = "<group>"; };
 		A61E435F2083D11500063397 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A61E43622083DD1900063397 /* SpriteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteSheet.swift; sourceTree = "<group>"; };
+		A61E438220846D3000063397 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A61E438C2084729500063397 /* PlayerLasersImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerLasersImages.atlas; sourceTree = "<group>"; };
+		A61E438D2084729500063397 /* EnemyLasersImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = EnemyLasersImages.atlas; sourceTree = "<group>"; };
 		A6FB60F22082D8E3004C3158 /* backgroundMusic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = backgroundMusic.wav; sourceTree = "<group>"; };
 		A6FB60F62082F9C4004C3158 /* CreditsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,6 +170,9 @@
 		2C4B5DE8207BDEFF00E01C5F /* Space Blasters */ = {
 			isa = PBXGroup;
 			children = (
+				A61E438D2084729500063397 /* EnemyLasersImages.atlas */,
+				A61E438C2084729500063397 /* PlayerLasersImages.atlas */,
+				A61E438220846D3000063397 /* Assets.xcassets */,
 				A61E43752084302300063397 /* Physics */,
 				A61E43742084301200063397 /* SpriteAnimations */,
 				A61E43732084300300063397 /* Controllers */,
@@ -179,7 +186,6 @@
 				2C4B5DEB207BDEFF00E01C5F /* GameScene.sks */,
 				2C4B5DED207BDEFF00E01C5F /* Actions.sks */,
 				2C4B5DF3207BDEFF00E01C5F /* Main.storyboard */,
-				2C4B5DF6207BDEFF00E01C5F /* Assets.xcassets */,
 				2C4B5DF8207BDEFF00E01C5F /* LaunchScreen.storyboard */,
 				2C4B5DFB207BDEFF00E01C5F /* Info.plist */,
 			);
@@ -403,12 +409,14 @@
 				2CEB95FF207EE26400D232F3 /* moon_get-Heavy.ttf in Resources */,
 				2C306373207D9A05008D154D /* boomSound.wav in Resources */,
 				2CEB95FD207EDEB500D232F3 /* GoogleService-Info.plist in Resources */,
+				A61E438E2084729500063397 /* PlayerLasersImages.atlas in Resources */,
 				2C4B5DF5207BDEFF00E01C5F /* Main.storyboard in Resources */,
+				A61E438320846D3100063397 /* Assets.xcassets in Resources */,
 				2C4B5DEC207BDEFF00E01C5F /* GameScene.sks in Resources */,
-				2C4B5DF7207BDEFF00E01C5F /* Assets.xcassets in Resources */,
 				A61E43602083D11500063397 /* JetEmitter.sks in Resources */,
 				A6FB60F32082D8E3004C3158 /* backgroundMusic.wav in Resources */,
 				2C4B5DFA207BDEFF00E01C5F /* LaunchScreen.storyboard in Resources */,
+				A61E438F2084729500063397 /* EnemyLasersImages.atlas in Resources */,
 				2C4B5E1E207BED9700E01C5F /* laserSound.wav in Resources */,
 				A61E43612083D11500063397 /* Assets.xcassets in Resources */,
 				2C4B5DEE207BDEFF00E01C5F /* Actions.sks in Resources */,

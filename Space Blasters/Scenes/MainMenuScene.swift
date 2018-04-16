@@ -59,7 +59,8 @@ class MainMenuScene: SKScene {
         playGameText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.5)
         self.addChild(playGameText)
         
-        // Top 3 Score Settings 
+        // Top 3 Score Settings
+        
         
         // Credits Settings
 //        creditsText.text = "Credits"
