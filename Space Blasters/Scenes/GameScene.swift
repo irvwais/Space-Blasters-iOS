@@ -72,9 +72,14 @@ class GameScene: SKScene {
         
         super.init(size: size)
         
-        
+        //gameSceneClassInstance = self
+        ////////////////////////////////////
         playerClass = Player()
         playerClass?.gameSceneClass = self
+//        enemyBossClass = EnemyBoss()
+//        enemyBossClass?.gameSceneClass = self
+//        enemyShipsClass = EnemyShips()
+//        enemyShipsClass?.gameSceneClass = self
         //playerClassInstance.gameSceneClass = self
 //        enemyShipsClass = EnemyShips()
 //        enemyBossClass = EnemyBoss()

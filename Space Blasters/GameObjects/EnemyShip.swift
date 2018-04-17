@@ -13,7 +13,7 @@ var enemyShipsClassInstance = EnemyShips()
 
 class EnemyShips: Player {
     
-    //weak var gameScene: GameScene?
+    //weak var gameSceneClass: GameScene?
     //weak var collisionDetection: CollisionDetection?
 
     var enemyShipSpeed: Double = 1000 // speed for enemy kamikaze ships

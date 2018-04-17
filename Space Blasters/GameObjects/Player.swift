@@ -14,6 +14,7 @@ import SpriteKit
 class Player: SKSpriteNode {
     
     weak var gameSceneClass: GameScene?
+
     //weak var collisionDetection: CollisionDetection?
 
     let playerNode = SKSpriteNode (imageNamed: "PlayerShip1")
@@ -21,6 +22,8 @@ class Player: SKSpriteNode {
     // Images
     var playerLaserImageAtlas = SKTextureAtlas()
     var playerLaserImageArray = [SKTexture]()
+    
+    
     
     func objectSetUp () {
         
