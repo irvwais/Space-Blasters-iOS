@@ -12,16 +12,16 @@ import SpriteKit
 class CollisionDetection: SKScene, SKPhysicsContactDelegate {
     
     weak var gameSceneClass: GameScene?
-    weak var enemyBossClass: EnemyBoss?
+    //weak var enemyBossClass: EnemyBoss?
     
     struct PhysicsLayers {
         
-        static let None : UInt32 = 0
-        static let Player : UInt32 = 0b1 // 1 in binary
-        static let PlayerLaser : UInt32 = 0b10 // 2 in binary
-        static let Enemy : UInt32 = 0b100 // 4 in binary
-        static let EnemyLaser : UInt32 = 0b1000 // 8 in binary
-        static let EnemyBoss : UInt32 = 0b10000 // 16 in binary
+        static let NoneLayer : UInt32 = 0
+        static let PlayerShipLayer : UInt32 = 0b1 // 1 in binary
+        static let PlayerLaserLayer : UInt32 = 0b10 // 2 in binary
+        static let EnemyShipLayer : UInt32 = 0b100 // 4 in binary
+        static let EnemyLaserLayer : UInt32 = 0b1000 // 8 in binary
+        static let EnemyBossLayer : UInt32 = 0b10000 // 16 in binary
     }
     
     func didBegin(_ contact: SKPhysicsContact) { // did we contact between two phyiscs bodies (physic layers)
@@ -39,7 +39,7 @@ class CollisionDetection: SKScene, SKPhysicsContactDelegate {
         }
         
         // if player and enemy have made contact
-        if body1.categoryBitMask == PhysicsLayers.Player && body2.categoryBitMask == PhysicsLayers.Enemy {
+        if body1.categoryBitMask == PhysicsLayers.PlayerShipLayer && body2.categoryBitMask == PhysicsLayers.EnemyShipLayer {
             
             if body1.node != nil {
                 gameSceneClass!.spawnExplosion(spawnPosition: body1.node!.position) // spawn explosion at the position of body1 (playerShip)
@@ -57,7 +57,7 @@ class CollisionDetection: SKScene, SKPhysicsContactDelegate {
         }
         
         // if player and enemy boss have made contact
-        if body1.categoryBitMask == PhysicsLayers.Player && body2.categoryBitMask == PhysicsLayers.EnemyBoss {
+        if body1.categoryBitMask == PhysicsLayers.PlayerShipLayer && body2.categoryBitMask == PhysicsLayers.EnemyBossLayer {
             
             if body1.node != nil {
                 gameSceneClass!.spawnExplosion(spawnPosition: body1.node!.position) // spawn explosion at the position of body1 (playerShip)
@@ -75,7 +75,7 @@ class CollisionDetection: SKScene, SKPhysicsContactDelegate {
         }
         
         // if playerLaser and enemy have made contact and enemy is on the screen
-        if body1.categoryBitMask == PhysicsLayers.PlayerLaser && body2.categoryBitMask == PhysicsLayers.Enemy && (body2.node?.position.y)! < self.size.height {
+        if body1.categoryBitMask == PhysicsLayers.PlayerLaserLayer && body2.categoryBitMask == PhysicsLayers.EnemyShipLayer && (body2.node?.position.y)! < gameSceneClass!.self.size.height {
             
             gameSceneClass!.addScore() // call add score method when player shoots enemy ship
             
@@ -89,15 +89,15 @@ class CollisionDetection: SKScene, SKPhysicsContactDelegate {
         }
         
         // if playerLaser and enemy boss have made contact and enemy is on the screen
-        if body1.categoryBitMask == PhysicsLayers.PlayerLaser && body2.categoryBitMask == PhysicsLayers.EnemyBoss && (body2.node?.position.y)! < self.size.height {
+        if body1.categoryBitMask == PhysicsLayers.PlayerLaserLayer && body2.categoryBitMask == PhysicsLayers.EnemyBossLayer && (body2.node?.position.y)! < gameSceneClass!.self.size.height {
             
-            enemyBossClass!.enemBossLives -= 1 // decrease enemy boss life
+            enemyBossClassInstance.enemBossLives -= 1 // decrease enemy boss life
             
-            if body2.node != nil && enemyBossClass!.enemBossLives == 0 {
+            if body2.node != nil && enemyBossClassInstance.enemBossLives == 0 {
                 gameSceneClass!.addScore() // call add score method when player shoots enemy boss
                 body2.node?.removeFromParent() // find the node accosiated with the body2 and delete it
                 enemyBossesKilled += 1 // increase count for enemy bosses killed
-                enemyBossClass!.yesSpawnEnemyBoss = false
+                enemyBossClassInstance.yesSpawnEnemyBoss = false
                 gameSceneClass!.spawnExplosion(spawnPosition: body2.node!.position) // spawn explosion at the position of body2 (enemy boss)
             }
             
@@ -107,7 +107,7 @@ class CollisionDetection: SKScene, SKPhysicsContactDelegate {
         }
         
         // if player and enemyLaser have made contact
-        if body1.categoryBitMask == PhysicsLayers.Player && body2.categoryBitMask == PhysicsLayers.EnemyLaser {
+        if body1.categoryBitMask == PhysicsLayers.PlayerShipLayer && body2.categoryBitMask == PhysicsLayers.EnemyLaserLayer {
             
             if body1.node != nil {
                 gameSceneClass!.loseLives() // lose player lives with each hit from enemy laser

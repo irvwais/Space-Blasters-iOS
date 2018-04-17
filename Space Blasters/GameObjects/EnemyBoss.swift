@@ -9,6 +9,8 @@
 import Foundation
 import SpriteKit
 
+var enemyBossClassInstance = EnemyBoss()
+
 class EnemyBoss: Player {
     
     // Enemy Boss Stats
@@ -23,10 +25,10 @@ class EnemyBoss: Player {
     
     override func objectSetUp() {
         
-        let randomXPos = CGFloat.random(min: 0.4, max: 0.8)
+        let randomYPos = CGFloat.random(min: 0.4, max: 0.8)
         
-        let leftEndPoint = CGPoint (x: gameSceneClass!.self.size.width * 0.23, y: gameSceneClass!.self.size.height * randomXPos) // leftPoint of travel for enemyBoss
-        let rightEndPoint = CGPoint (x: gameSceneClass!.self.size.width * 0.77, y: gameSceneClass!.self.size.height * randomXPos) // rightPoint of travel for enemyBoss
+        let leftEndPoint = CGPoint (x: gameSceneClass!.size.width * 0.23, y: gameSceneClass!.size.height * randomYPos) // leftPoint of travel for enemyBoss
+        let rightEndPoint = CGPoint (x: gameSceneClass!.size.width * 0.77, y: gameSceneClass!.size.height * randomYPos) // rightPoint of travel for enemyBoss
         
         //let randomFireLaser = CGFloat.random(min: 1, max:3) // random time for firing lasers
         
@@ -34,16 +36,16 @@ class EnemyBoss: Player {
         let enemyBossNode = SKSpriteNode(imageNamed: "BossShip")
         enemyBossNode.name = "EnemyBossRef" // Reference for Enemy Boss
         enemyBossNode.setScale(1.5) // Set scale of enemy Boss (1) being normal
-        enemyBossNode.position = CGPoint (x: gameSceneClass!.self.size.width / 2, y: gameSceneClass!.self.size.height * 1.2) // spawn enemy boss just above top of screen
+        enemyBossNode.position = CGPoint (x: gameSceneClass!.size.width / 2, y: gameSceneClass!.size.height * 1.2) // spawn enemy boss just above top of screen
         enemyBossNode.zPosition = 2 // zPosition of enemy boss
         enemyBossNode.physicsBody = SKPhysicsBody(rectangleOf: enemyBossNode.size) // add physicsBody (Collision Detection Box) to the size of enemy boss
         enemyBossNode.physicsBody!.affectedByGravity = false // make sure the attached physicsBody does not use gravity to pull enemyBoss down
-        enemyBossNode.physicsBody!.categoryBitMask = CollisionDetection.PhysicsLayers.EnemyBoss // assigned enemyBoss to phyiscs layer Enemy
-        enemyBossNode.physicsBody!.collisionBitMask = CollisionDetection.PhysicsLayers.None // Collision cannot occur with any layer
-        enemyBossNode.physicsBody!.contactTestBitMask = CollisionDetection.PhysicsLayers.PlayerLaser // enemy ship phyiscs layer can make contact with phyiscs layers of laser
-        gameSceneClass!.self.addChild(enemyBossNode) // Add enemyBoss to the scene
+        enemyBossNode.physicsBody!.categoryBitMask = CollisionDetection.PhysicsLayers.EnemyBossLayer // assigned enemyBoss to phyiscs layer Enemy
+        enemyBossNode.physicsBody!.collisionBitMask = CollisionDetection.PhysicsLayers.NoneLayer // Collision cannot occur with any layer
+        enemyBossNode.physicsBody!.contactTestBitMask = CollisionDetection.PhysicsLayers.PlayerLaserLayer // enemy ship phyiscs layer can make contact with phyiscs layers of laser
+        gameSceneClass!.addChild(enemyBossNode) // Add enemyBoss to the scene
         
-        let moveEnemyBossOntoScreen = SKAction.moveTo(y: gameSceneClass!.self.size.height * 0.8 , duration: 0.5)
+        let moveEnemyBossOntoScreen = SKAction.moveTo(y: gameSceneClass!.size.height * 0.8 , duration: 0.5)
         let moveEnemyBossLeft = SKAction.move(to: leftEndPoint, duration: enemyBossXSpeed) // move enemyBoss to left end point
         let moveEnemyBossRight = SKAction.move(to: rightEndPoint, duration: enemyBossXSpeed) // move enemyBoss to right end point
         //let moveEnemyBossTowardsButtom = SKAction.move(to: player.position, duration: enemyBossYSpeed) // move towards the player
@@ -63,7 +65,7 @@ class EnemyBoss: Player {
             
             if gameSceneClass!.currentGameState == GameScene.GameState.inGame { // only this sequence if game is actually running
                 enemyBossNode.run(moveEnemyBossWhileAlive)
-                if enemyBossNode.position.y > gameSceneClass!.self.size.height * 0.8 { // only when in correct position start firing enemy laser
+                if enemyBossNode.position.y > gameSceneClass!.size.height * 0.8 { // only when in correct position start firing enemy laser
                     enemyBossNode.run(spawnForeverEnemyLaser)
                 }
             }
@@ -90,12 +92,12 @@ class EnemyBoss: Player {
         enemyLaserNode.zPosition = 1 // Spawn under player ship
         enemyLaserNode.physicsBody = SKPhysicsBody(rectangleOf: enemyLaserNode.size) // add physicsBody (Collision Detection Box) to the size of enemyLaser
         enemyLaserNode.physicsBody!.affectedByGravity = false // make sure the attached physicsBody does not use gravity to pull enemyLaser down
-        enemyLaserNode.physicsBody!.categoryBitMask = CollisionDetection.PhysicsLayers.EnemyLaser // assigned enemyLaser to phyiscs layer Laser
-        enemyLaserNode.physicsBody!.collisionBitMask = CollisionDetection.PhysicsLayers.None // Collision cannot occur with any layer
-        enemyLaserNode.physicsBody!.contactTestBitMask = CollisionDetection.PhysicsLayers.Player // enemyLaser phyiscs layer can make contact with phyiscs layers of enemy
-        gameSceneClass!.self.addChild(enemyLaserNode) // add enemyLaser to scene
+        enemyLaserNode.physicsBody!.categoryBitMask = CollisionDetection.PhysicsLayers.EnemyLaserLayer // assigned enemyLaser to phyiscs layer Laser
+        enemyLaserNode.physicsBody!.collisionBitMask = CollisionDetection.PhysicsLayers.NoneLayer // Collision cannot occur with any layer
+        enemyLaserNode.physicsBody!.contactTestBitMask = CollisionDetection.PhysicsLayers.PlayerShipLayer // enemyLaser phyiscs layer can make contact with phyiscs layers of enemy
+        gameSceneClass!.addChild(enemyLaserNode) // add enemyLaser to scene
         
-        let moveEnemyLaser = SKAction.moveTo(y: -gameSceneClass!.self.size.height + enemyLaserNode.size.height, duration: 1.5) // move Laser down along Y axis for set duration
+        let moveEnemyLaser = SKAction.moveTo(y: -gameSceneClass!.size.height + enemyLaserNode.size.height, duration: 1.5) // move Laser down along Y axis for set duration
         let deleteEnemyLaser = SKAction.removeFromParent() // delete after 1 sec
         
         let laserSequence = SKAction.sequence([gameSceneClass!.laserSound, moveEnemyLaser, deleteEnemyLaser]) // sequence of events for shooting player lasers

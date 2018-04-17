@@ -14,13 +14,16 @@ var gameScore = 0 // score count starts at zero
 var enemyLetThroughCount = 0 // Counter that tracks how many enemies got passed you
 var enemyBossesKilled = 0 // count for enemy bosses killed
 
+//var gameSceneClassInstance = GameScene()
+
+
 class GameScene: SKScene {
     
     ////////////////////////////
     ///////
-    weak var playerClass: Player?
-    weak var enemyBossClass: EnemyBoss?
-    weak var enemyShipsClass: EnemyShips?
+    var playerClass: Player?
+//    var enemyBossClass: EnemyBoss?
+//    var enemyShipsClass: EnemyShips?
     var collisionDetectionClass: CollisionDetection?
     ///////
     ////////////////////////////
@@ -69,8 +72,13 @@ class GameScene: SKScene {
         
         super.init(size: size)
         
-        // Set Up Physics to be delegated to this class
-        collisionDetectionClass = CollisionDetection()
+        
+        playerClass = Player()
+        playerClass?.gameSceneClass = self
+        //playerClassInstance.gameSceneClass = self
+//        enemyShipsClass = EnemyShips()
+//        enemyBossClass = EnemyBoss()
+        collisionDetectionClass = CollisionDetection() // Set Up Physics to be delegated to this class
         collisionDetectionClass?.gameSceneClass = self
     }
     
@@ -81,6 +89,8 @@ class GameScene: SKScene {
     
     override func didMove (to view: SKView) {
         
+        
+        
         gameScore = 0 // Reset game score back to zero
         enemyBossesKilled = 0 // Reset Enemy Bosses Killed Count back to zero
         enemyLetThroughCount = 0 // Reset Enemy Let Through Count back to zero
@@ -89,10 +99,10 @@ class GameScene: SKScene {
         physicsWorld.contactDelegate = collisionDetectionClass
 
         // Call laserAnimate from Player Class
-        playerClass?.laserAnimate()
+        playerClass!.laserAnimate()
         
         // Call laserAnimate from Enemy Boss Class
-        enemyBossClass?.laserAnimate()
+        enemyBossClassInstance.laserAnimate()
         
         for i in 0...1 { // Loop through background settings twice to create two backgrounds
             // Background Settings
@@ -106,7 +116,8 @@ class GameScene: SKScene {
         }
         
         // Call playerSetUp func from Player Class
-        playerClass?.objectSetUp()
+        playerClass!.objectSetUp()
+        //self.addChild(Player())
         
         // Score Text Settings
         scoreText.text = "Score: 0" // Text for score to display at start of game
@@ -198,7 +209,7 @@ class GameScene: SKScene {
         let movePlayerOntoScreen = SKAction.moveTo(y: self.size.height * 0.2 , duration: 0.5)
         let startLevelAction = SKAction.run(startLevel)
         let startGameSequence = SKAction.sequence([movePlayerOntoScreen, startLevelAction])
-        playerClass?.run(startGameSequence)
+        playerClass!.playerNode.run(startGameSequence)
     }
     
     func addScore () {
@@ -321,7 +332,7 @@ class GameScene: SKScene {
         
         levelNumber += 1 // First time this method runs start at level 1
         
-        if self.action(forKey: "spawningEnemies") != nil && !enemyBossClass!.yesSpawnEnemyBoss{ // if we are already spawning enemies then stop and change for the next level
+        if self.action(forKey: "spawningEnemies") != nil && !enemyBossClassInstance.yesSpawnEnemyBoss{ // if we are already spawning enemies then stop and change for the next level
             self.removeAction(forKey: "spawningEnemies")
         }
         
@@ -330,61 +341,61 @@ class GameScene: SKScene {
         switch levelNumber {
         case 1: // Level 1
             spawnEnemyDuration = 3
-            enemyShipsClass!.enemyShipSpeed = 5
+            enemyShipsClassInstance.enemyShipSpeed = 5
         case 2: // Level 2
             spawnEnemyDuration = 2.7
-            enemyShipsClass!.enemyShipSpeed = 4.7
-            enemyBossClass!.yesSpawnEnemyBoss = true // flag for spawning enemyBoss
+            enemyShipsClassInstance.enemyShipSpeed = 4.7
+            enemyBossClassInstance.yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         case 3: // Level 3
             spawnEnemyDuration = 2.3
-            enemyShipsClass!.enemyShipSpeed = 4.3
+            enemyShipsClassInstance.enemyShipSpeed = 4.3
         case 4: // Level 4
             spawnEnemyDuration = 2.0
-            enemyShipsClass!.enemyShipSpeed = 4.0
-            enemyBossClass!.enemyBossXSpeed = 4
+            enemyShipsClassInstance.enemyShipSpeed = 4.0
+            enemyBossClassInstance.enemyBossXSpeed = 4
             //enemyBossYSpeed = 25
-            enemyBossClass!.enemBossLives = 5 // reset enemy boss lives to 5
-            enemyBossClass!.yesSpawnEnemyBoss = true // flag for spawning enemyBoss
+            enemyBossClassInstance.enemBossLives = 5 // reset enemy boss lives to 5
+            enemyBossClassInstance.yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         case 5: // Level 5
             spawnEnemyDuration = 1.8
-            enemyShipsClass!.enemyShipSpeed = 3.5
+            enemyShipsClassInstance.enemyShipSpeed = 3.5
         case 6: // Level 6
             spawnEnemyDuration = 1.5
-            enemyShipsClass!.enemyShipSpeed = 3.3
-            enemyBossClass!.enemyBossXSpeed = 3
+            enemyShipsClassInstance.enemyShipSpeed = 3.3
+            enemyBossClassInstance.enemyBossXSpeed = 3
             //enemyBossYSpeed = 20
-            enemyBossClass!.enemBossLives = 7 // reset enemy boss lives to 7
-            enemyBossClass!.yesSpawnEnemyBoss = true // flag for spawning enemyBoss
+            enemyBossClassInstance.enemBossLives = 7 // reset enemy boss lives to 7
+            enemyBossClassInstance.yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         case 7: // Level 7
             spawnEnemyDuration = 1.3
-            enemyShipsClass!.enemyShipSpeed = 3.0
+            enemyShipsClassInstance.enemyShipSpeed = 3.0
         case 8: // Level 8
             spawnEnemyDuration = 1
-            enemyShipsClass!.enemyShipSpeed = 2.8
-            enemyBossClass!.enemyBossXSpeed = 2
-            enemyBossClass!.enemBossLives = 9 // reset enemy boss lives to 9
+            enemyShipsClassInstance.enemyShipSpeed = 2.8
+            enemyBossClassInstance.enemyBossXSpeed = 2
+            enemyBossClassInstance.enemBossLives = 9 // reset enemy boss lives to 9
             //enemyBossYSpeed = 15
-            enemyBossClass!.yesSpawnEnemyBoss = true // flag for spawning enemyBoss
+            enemyBossClassInstance.yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         case 9: // Level 9
             spawnEnemyDuration = 0.8
-            enemyShipsClass!.enemyShipSpeed = 2.5
+            enemyShipsClassInstance.enemyShipSpeed = 2.5
         case 10: // Level 10
             spawnEnemyDuration = 0.5
-            enemyShipsClass!.enemyShipSpeed = 2
-            enemyBossClass!.enemyBossXSpeed = 1
-            enemyBossClass!.enemBossLives = 12 // reset enemy boss lives to 12
+            enemyShipsClassInstance.enemyShipSpeed = 2
+            enemyBossClassInstance.enemyBossXSpeed = 1
+            enemyBossClassInstance.enemBossLives = 12 // reset enemy boss lives to 12
             //enemyBossYSpeed = 12
-            enemyBossClass!.yesSpawnEnemyBoss = true // flag for spawning enemyBoss
+            enemyBossClassInstance.yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         default:
             spawnEnemyDuration = 3
             print("Spawn Enemy for each level ERROR!")
         }
         
-        let spawn = SKAction.run(enemyShipsClass!.objectSetUp)
-        let spawnEnemyBosses = SKAction.run(enemyBossClass!.objectSetUp)
+        let spawn = SKAction.run(enemyShipsClassInstance.objectSetUp)
+        let spawnEnemyBosses = SKAction.run(enemyBossClassInstance.objectSetUp)
         let waitToSpawn = SKAction.wait(forDuration: spawnEnemyDuration)
         
-        if enemyBossClass!.yesSpawnEnemyBoss {
+        if enemyBossClassInstance.yesSpawnEnemyBoss {
             let spawnEnemyBossSequence = SKAction.sequence([waitToSpawn, spawnEnemyBosses])
             self.run(spawnEnemyBossSequence)
         } else {
@@ -401,10 +412,30 @@ class GameScene: SKScene {
         if currentGameState == GameState.preGame { // if the game state is pre game start the game
             startGame()
         } else if currentGameState == GameState.inGame { // only allow player to shoot laser if the Current Game State is duringGame
-            playerClass?.fireLaser()
+            playerClass!.fireLaser()
         }
     }
     
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        for touch: AnyObject in touches {
+            let pointOfTouch = touch.location(in: self) // where player is touching the screen now
+            let previousPointOfTouch = touch.previousLocation(in: self) // where player was touching the screen
+            let amountDragged = pointOfTouch.x - previousPointOfTouch.x // get the difference
+            
+            if  currentGameState == GameState.inGame { // only allow player to move ship if the Current Game State is duringGame
+                playerClass!.playerNode.position.x += amountDragged // add to the player ship position to move
+            }
+            
+            if playerClass!.playerNode.position.x > gameSpace.maxX - playerClass!.playerNode.size.width / 2 { // If player moves to the maximum right, restrain position before that boarder
+                playerClass!.playerNode.position.x = gameSpace.maxX - playerClass!.playerNode.size.width / 2
+            }
+            
+            if playerClass!.playerNode.position.x < gameSpace.minX + playerClass!.playerNode.size.width / 2 { // If player moves to the minimum left, restrain position before that boarder
+                playerClass!.playerNode.position.x = gameSpace.minX + playerClass!.playerNode.size.width / 2
+            }
+        }
+    }
     
    
 }

@@ -9,6 +9,8 @@
 import Foundation
 import SpriteKit
 
+var enemyShipsClassInstance = EnemyShips()
+
 class EnemyShips: Player {
     
     //weak var gameScene: GameScene?
@@ -18,11 +20,13 @@ class EnemyShips: Player {
 
     override func objectSetUp() {
         
-        let randomXStart = CGFloat.random(min: gameSceneClass!.gameSpace.minX, max: gameSceneClass!.gameSpace.maxX) // Random Enemy Start X-Axis position (Spawn Position)
-        let randomXEnd = CGFloat.random(min: gameSceneClass!.gameSpace.minX, max: gameSceneClass!.gameSpace.maxX) // Random Enemy End X-Axis position
+//        let randomXStart = CGFloat.random(min: (gameSceneClass?.gameSpace.minX)!, max: (gameSceneClass?.gameSpace.maxX)!) // Random Enemy Start X-Axis position (Spawn Position)
+//        let randomXEnd = CGFloat.random(min: gameSceneClass!.gameSpace.minX, max: gameSceneClass!.gameSpace.maxX) // Random Enemy End X-Axis position
+        let randomXStart = CGFloat.random(min: 0.1, max: 0.9) // Random Enemy Start X-Axis position (Spawn Position)
+        let randomXEnd = CGFloat.random(min: 0.1, max: 0.9) // Random Enemy End X-Axis position
         
-        let startPoint = CGPoint(x: randomXStart, y: gameSceneClass!.self.size.height * 1.2) // Spawn position is Random X Start Postion and just above screen space
-        let endPoint = CGPoint (x: randomXEnd, y: -gameSceneClass!.self.size.height * 0.2) // End Postion is Random X End Position and just below screen space
+        let startPoint = CGPoint(x: randomXStart, y: gameSceneClass!.size.height * 1.2) // Spawn position is Random X Start Postion and just above screen space
+        let endPoint = CGPoint (x: randomXEnd, y: -gameSceneClass!.size.height * 0.2) // End Postion is Random X End Position and just below screen space
         
         // Enemy Ship Settings
         let enemyShipNode = SKSpriteNode(imageNamed: "EnemyShip")
@@ -32,10 +36,10 @@ class EnemyShips: Player {
         enemyShipNode.zPosition = 2 // zPostion of enemy
         enemyShipNode.physicsBody = SKPhysicsBody(rectangleOf: enemyShipNode.size) // add physicsBody (Collision Detection Box) to the size of enemy ship
         enemyShipNode.physicsBody!.affectedByGravity = false // make sure the attached physicsBody does not use gravity to pull enemy down
-        enemyShipNode.physicsBody!.categoryBitMask = CollisionDetection.PhysicsLayers.Enemy // assigned enemy ship to phyiscs layer Enemy
-        enemyShipNode.physicsBody!.collisionBitMask = CollisionDetection.PhysicsLayers.None // Collision cannot occur with any layer
-        enemyShipNode.physicsBody!.contactTestBitMask = CollisionDetection.PhysicsLayers.Player | CollisionDetection.PhysicsLayers.PlayerLaser // enemy ship phyiscs layer can make contact with phyiscs layers of player or laser
-        gameSceneClass!.self.addChild(enemyShipNode) // Add enemy ship to the scene
+        enemyShipNode.physicsBody!.categoryBitMask = CollisionDetection.PhysicsLayers.EnemyShipLayer // assigned enemy ship to phyiscs layer Enemy
+        enemyShipNode.physicsBody!.collisionBitMask = CollisionDetection.PhysicsLayers.NoneLayer // Collision cannot occur with any layer
+        enemyShipNode.physicsBody!.contactTestBitMask = CollisionDetection.PhysicsLayers.PlayerShipLayer | CollisionDetection.PhysicsLayers.PlayerLaserLayer // enemy ship phyiscs layer can make contact with phyiscs layers of player or laser
+        gameSceneClass!.addChild(enemyShipNode) // Add enemy ship to the scene
         
         let moveEnemy = SKAction.move(to: endPoint, duration: enemyShipSpeed) // Move enemy ship to endPoint in set seconds
         let deleteEnemy = SKAction.removeFromParent() // delete enemy

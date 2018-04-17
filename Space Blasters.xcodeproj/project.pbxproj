@@ -12,6 +12,7 @@
 		2C4402D2208665C70010B6ED /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4402D1208665C70010B6ED /* Player.swift */; };
 		2C4402D420866D8C0010B6ED /* EnemyShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4402D320866D8C0010B6ED /* EnemyShip.swift */; };
 		2C4402D620866DB30010B6ED /* EnemyBoss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4402D520866DB30010B6ED /* EnemyBoss.swift */; };
+		2C4402D8208691400010B6ED /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4402D7208691400010B6ED /* GameObject.swift */; };
 		2C4B5DEA207BDEFF00E01C5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4B5DE9207BDEFF00E01C5F /* AppDelegate.swift */; };
 		2C4B5DEC207BDEFF00E01C5F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2C4B5DEB207BDEFF00E01C5F /* GameScene.sks */; };
 		2C4B5DEE207BDEFF00E01C5F /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2C4B5DED207BDEFF00E01C5F /* Actions.sks */; };
@@ -41,7 +42,6 @@
 		2CF570B620817CFF00B9210A /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF570B520817CFF00B9210A /* MainMenuScene.swift */; };
 		A61E43602083D11500063397 /* JetEmitter.sks in Resources */ = {isa = PBXBuildFile; fileRef = A61E435E2083D11500063397 /* JetEmitter.sks */; };
 		A61E43612083D11500063397 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A61E435F2083D11500063397 /* Assets.xcassets */; };
-		A61E43632083DD1900063397 /* SpriteSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61E43622083DD1900063397 /* SpriteSheet.swift */; };
 		A61E438320846D3100063397 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A61E438220846D3000063397 /* Assets.xcassets */; };
 		A61E438E2084729500063397 /* PlayerLasersImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = A61E438C2084729500063397 /* PlayerLasersImages.atlas */; };
 		A61E438F2084729500063397 /* EnemyLasersImages.atlas in Resources */ = {isa = PBXBuildFile; fileRef = A61E438D2084729500063397 /* EnemyLasersImages.atlas */; };
@@ -72,6 +72,7 @@
 		2C4402D1208665C70010B6ED /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		2C4402D320866D8C0010B6ED /* EnemyShip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyShip.swift; sourceTree = "<group>"; };
 		2C4402D520866DB30010B6ED /* EnemyBoss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyBoss.swift; sourceTree = "<group>"; };
+		2C4402D7208691400010B6ED /* GameObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
 		2C4B5DE6207BDEFF00E01C5F /* Space Blasters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Space Blasters.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C4B5DE9207BDEFF00E01C5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C4B5DEB207BDEFF00E01C5F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -107,7 +108,6 @@
 		2CF570B520817CFF00B9210A /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		A61E435E2083D11500063397 /* JetEmitter.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = JetEmitter.sks; sourceTree = "<group>"; };
 		A61E435F2083D11500063397 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A61E43622083DD1900063397 /* SpriteSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpriteSheet.swift; sourceTree = "<group>"; };
 		A61E438220846D3000063397 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A61E438C2084729500063397 /* PlayerLasersImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerLasersImages.atlas; sourceTree = "<group>"; };
 		A61E438D2084729500063397 /* EnemyLasersImages.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = EnemyLasersImages.atlas; sourceTree = "<group>"; };
@@ -158,6 +158,7 @@
 				2C4402D1208665C70010B6ED /* Player.swift */,
 				2C4402D320866D8C0010B6ED /* EnemyShip.swift */,
 				2C4402D520866DB30010B6ED /* EnemyBoss.swift */,
+				2C4402D7208691400010B6ED /* GameObject.swift */,
 			);
 			path = GameObjects;
 			sourceTree = "<group>";
@@ -191,7 +192,6 @@
 				A61E438C2084729500063397 /* PlayerLasersImages.atlas */,
 				A61E438220846D3000063397 /* Assets.xcassets */,
 				A61E43752084302300063397 /* Physics */,
-				A61E43742084301200063397 /* SpriteAnimations */,
 				A61E43732084300300063397 /* Controllers */,
 				A61E437220842FEE00063397 /* Scenes */,
 				A61E437020842FC200063397 /* Math */,
@@ -271,14 +271,6 @@
 				2C4B5DF1207BDEFF00E01C5F /* GameViewController.swift */,
 			);
 			path = Controllers;
-			sourceTree = "<group>";
-		};
-		A61E43742084301200063397 /* SpriteAnimations */ = {
-			isa = PBXGroup;
-			children = (
-				A61E43622083DD1900063397 /* SpriteSheet.swift */,
-			);
-			path = SpriteAnimations;
 			sourceTree = "<group>";
 		};
 		A61E43752084302300063397 /* Physics */ = {
@@ -469,9 +461,9 @@
 				2C4B5DF2207BDEFF00E01C5F /* GameViewController.swift in Sources */,
 				2CF570B420816E8E00B9210A /* GameOverScene.swift in Sources */,
 				2CF570B620817CFF00B9210A /* MainMenuScene.swift in Sources */,
+				2C4402D8208691400010B6ED /* GameObject.swift in Sources */,
 				2C4B5DEA207BDEFF00E01C5F /* AppDelegate.swift in Sources */,
 				2C4402D2208665C70010B6ED /* Player.swift in Sources */,
-				A61E43632083DD1900063397 /* SpriteSheet.swift in Sources */,
 				2C4402D420866D8C0010B6ED /* EnemyShip.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
