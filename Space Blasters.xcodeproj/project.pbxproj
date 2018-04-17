@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		2C306371207D8805008D154D /* CollisionDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C306370207D8805008D154D /* CollisionDetection.swift */; };
 		2C306373207D9A05008D154D /* boomSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C306372207D9A05008D154D /* boomSound.wav */; };
+		2C4402D2208665C70010B6ED /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4402D1208665C70010B6ED /* Player.swift */; };
+		2C4402D420866D8C0010B6ED /* EnemyShip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4402D320866D8C0010B6ED /* EnemyShip.swift */; };
+		2C4402D620866DB30010B6ED /* EnemyBoss.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4402D520866DB30010B6ED /* EnemyBoss.swift */; };
 		2C4B5DEA207BDEFF00E01C5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4B5DE9207BDEFF00E01C5F /* AppDelegate.swift */; };
 		2C4B5DEC207BDEFF00E01C5F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2C4B5DEB207BDEFF00E01C5F /* GameScene.sks */; };
 		2C4B5DEE207BDEFF00E01C5F /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2C4B5DED207BDEFF00E01C5F /* Actions.sks */; };
@@ -66,6 +69,9 @@
 /* Begin PBXFileReference section */
 		2C306370207D8805008D154D /* CollisionDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionDetection.swift; sourceTree = "<group>"; };
 		2C306372207D9A05008D154D /* boomSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = boomSound.wav; sourceTree = "<group>"; };
+		2C4402D1208665C70010B6ED /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		2C4402D320866D8C0010B6ED /* EnemyShip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyShip.swift; sourceTree = "<group>"; };
+		2C4402D520866DB30010B6ED /* EnemyBoss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnemyBoss.swift; sourceTree = "<group>"; };
 		2C4B5DE6207BDEFF00E01C5F /* Space Blasters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Space Blasters.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C4B5DE9207BDEFF00E01C5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C4B5DEB207BDEFF00E01C5F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -146,6 +152,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C4402D02086659F0010B6ED /* GameObjects */ = {
+			isa = PBXGroup;
+			children = (
+				2C4402D1208665C70010B6ED /* Player.swift */,
+				2C4402D320866D8C0010B6ED /* EnemyShip.swift */,
+				2C4402D520866DB30010B6ED /* EnemyBoss.swift */,
+			);
+			path = GameObjects;
+			sourceTree = "<group>";
+		};
 		2C4B5DDD207BDEFF00E01C5F = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +186,7 @@
 		2C4B5DE8207BDEFF00E01C5F /* Space Blasters */ = {
 			isa = PBXGroup;
 			children = (
+				2C4402D02086659F0010B6ED /* GameObjects */,
 				A61E438D2084729500063397 /* EnemyLasersImages.atlas */,
 				A61E438C2084729500063397 /* PlayerLasersImages.atlas */,
 				A61E438220846D3000063397 /* Assets.xcassets */,
@@ -447,12 +464,15 @@
 				2C4B5E20207BF68000E01C5F /* CGFloatRandom.swift in Sources */,
 				A6FB60F72082F9C4004C3158 /* CreditsScene.swift in Sources */,
 				2C4B5DF0207BDEFF00E01C5F /* GameScene.swift in Sources */,
+				2C4402D620866DB30010B6ED /* EnemyBoss.swift in Sources */,
 				2C306371207D8805008D154D /* CollisionDetection.swift in Sources */,
 				2C4B5DF2207BDEFF00E01C5F /* GameViewController.swift in Sources */,
 				2CF570B420816E8E00B9210A /* GameOverScene.swift in Sources */,
 				2CF570B620817CFF00B9210A /* MainMenuScene.swift in Sources */,
 				2C4B5DEA207BDEFF00E01C5F /* AppDelegate.swift in Sources */,
+				2C4402D2208665C70010B6ED /* Player.swift in Sources */,
 				A61E43632083DD1900063397 /* SpriteSheet.swift in Sources */,
+				2C4402D420866D8C0010B6ED /* EnemyShip.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
