@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2C306371207D8805008D154D /* CollisionDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C306370207D8805008D154D /* CollisionDetection.swift */; };
 		2C306373207D9A05008D154D /* boomSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C306372207D9A05008D154D /* boomSound.wav */; };
+		2C4402DD2086BE700010B6ED /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4402DC2086BE700010B6ED /* GoogleMobileAds.framework */; };
 		2C4B5DEA207BDEFF00E01C5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4B5DE9207BDEFF00E01C5F /* AppDelegate.swift */; };
 		2C4B5DEC207BDEFF00E01C5F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2C4B5DEB207BDEFF00E01C5F /* GameScene.sks */; };
 		2C4B5DEE207BDEFF00E01C5F /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2C4B5DED207BDEFF00E01C5F /* Actions.sks */; };
@@ -66,6 +67,7 @@
 /* Begin PBXFileReference section */
 		2C306370207D8805008D154D /* CollisionDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionDetection.swift; sourceTree = "<group>"; };
 		2C306372207D9A05008D154D /* boomSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = boomSound.wav; sourceTree = "<group>"; };
+		2C4402DC2086BE700010B6ED /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		2C4B5DE6207BDEFF00E01C5F /* Space Blasters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Space Blasters.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C4B5DE9207BDEFF00E01C5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C4B5DEB207BDEFF00E01C5F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 			files = (
 				2CD2905D207EACE9007F201E /* libsqlite3.tbd in Frameworks */,
 				2CD2905B207EACC9007F201E /* StoreKit.framework in Frameworks */,
+				2C4402DD2086BE700010B6ED /* GoogleMobileAds.framework in Frameworks */,
 				2CD29059207EACBB007F201E /* libicucore.A.tbd in Frameworks */,
 				2CD29055207EAA03007F201E /* FirebaseDatabase.framework in Frameworks */,
 				2CD2904B207EA9F1007F201E /* nanopb.framework in Frameworks */,
@@ -213,6 +216,7 @@
 		2CD2902F207EA939007F201E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2C4402DC2086BE700010B6ED /* GoogleMobileAds.framework */,
 				2CD2905C207EACE9007F201E /* libsqlite3.tbd */,
 				2CD2905A207EACC9007F201E /* StoreKit.framework */,
 				2CD29058207EACBA007F201E /* libicucore.A.tbd */,

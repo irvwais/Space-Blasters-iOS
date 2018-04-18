@@ -6,6 +6,11 @@
 //  Copyright © 2018 Irving Waisman. All rights reserved.
 //
 
+/////////////////
+////app ID              : ca-app-pub-5176335160186260~9759962531
+////banner ad unit ID   : ca-app-pub-5176335160186260/5577228846
+/////////////////
+
 import SpriteKit
 import GameplayKit
 
@@ -13,6 +18,8 @@ import GameplayKit
 var gameScore = 0 // score count starts at zero
 var enemyLetThroughCount = 0 // Counter that tracks how many enemies got passed you
 var enemyBossesKilled = 0 // count for enemy bosses killed
+
+//var gameSceneClass = GameScene()
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
