@@ -53,11 +53,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let laserSound = SKAction.playSoundFileNamed("laserSound.wav", waitForCompletion: false)
     let boomSound = SKAction.playSoundFileNamed("boomSound.wav", waitForCompletion: false)
     
-    // Images
+    ////////////////////////////////////////
+    //////// Images Decleration ////////////
+    ////////////////////////////////////////
+    // Player Ship Hit Image Texture Atlas and Array
     var playerShipImageAtlas = SKTextureAtlas()
     var playerShipImageArray = [SKTexture]()
+    
+    // Player Ship Upgraded Texture  Atlas and Array
+    var playerUpgradedShipAtlas = SKTextureAtlas()
+    var playerUpgradedShipArray = [SKTexture]()
+    
+    // Player Laser Image Texture  Atlas and Array
     var playerLaserImageAtlas = SKTextureAtlas()
     var playerLaserImageArray = [SKTexture]()
+    
+    // Double Laser Upgrade Image Texture Atlas and Array
+    var doubleLaserImageAtlas = SKTextureAtlas()
+    var doubleLaserImageArray = [SKTexture]()
+    
+    // Enemy Laser Image Texture Atlas and Array
     var enemyLaserImageAtlas = SKTextureAtlas()
     var enemyLaserImageArray = [SKTexture]()
     
@@ -114,11 +129,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             playerShipImageArray.append(SKTexture(imageNamed: imagePlayerShipName))
         }
         
-        enemyLaserImageAtlas = SKTextureAtlas(named: "EnemyLasersImages")
+        playerUpgradedShipAtlas = SKTextureAtlas(named: "PlayerAnim2")
         
-        for i in 1...enemyLaserImageAtlas.textureNames.count {
-            let imageEnemyLaserName = "EnemyLasers_\(i).png"
-            enemyLaserImageArray.append(SKTexture(imageNamed: imageEnemyLaserName))
+        for i in 1...playerUpgradedShipAtlas.textureNames.count {
+            let imageUpgradedShipName = "PlayerShip2_\(i).png"
+            playerUpgradedShipArray.append(SKTexture(imageNamed: imageUpgradedShipName))
         }
         
         playerLaserImageAtlas = SKTextureAtlas(named: "PlayerLasersImages")
@@ -126,6 +141,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for i in 1...playerLaserImageAtlas.textureNames.count {
             let imagePlayerLaserName = "PlayerLasers_\(i).png"
             playerLaserImageArray.append(SKTexture(imageNamed: imagePlayerLaserName))
+        }
+        
+        doubleLaserImageAtlas = SKTextureAtlas(named: "DBPlayerLasersAnim")
+        
+        for i in 1...doubleLaserImageAtlas.textureNames.count {
+            let imageDBLaserName = "DBPlayerLasers_\(i).png"
+            doubleLaserImageArray.append(SKTexture(imageNamed: imageDBLaserName))
         }
         
         enemyLaserImageAtlas = SKTextureAtlas(named: "EnemyLasersImages")
@@ -329,6 +351,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             playerLaser.removeAllActions() // stop all actions of playerLaser
         }
         
+        self.enumerateChildNodes(withName: "DoubleLaserRef") {
+            doublLaserNode, stop in
+            doublLaserNode.removeAllActions()
+        }
+        
         self.enumerateChildNodes(withName: "EnemyLaserRef") { // find all nodes in scene with reference name EnemyLaserRef
             enemyLaser, stop in // cycle through callin each enemyLaser Node
             enemyLaser.removeAllActions() // stop all actions of enemyLaser
@@ -342,6 +369,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.enumerateChildNodes(withName: "EnemyShipRef") { // find all nodes in scene with reference name EnemyShipRef
             enemy, stop in // cycle through callin each enemy Node
             enemy.removeAllActions() // stop all actions of enemy
+        }
+        
+        self.enumerateChildNodes(withName: "DoubleLaserItemRef") {
+            doubleLaserItem, stop in
+            doubleLaserItem.removeAllActions()
+        }
+        
+        self.enumerateChildNodes(withName: "OnePlusLifeItemRef") {
+            onePlusLifeItem, stop in
+            onePlusLifeItem.removeAllActions()
         }
         
         let changeScene = SKAction.run(callGameOverScene)
@@ -428,10 +465,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             enemBossLives -= 1 // decrease enemy boss life
             
             if body2.node != nil && enemBossLives == 0 {
+                itemFactoryInstance.selectRandItem() // Call Random Item Spawn when Enemy Boss is killed
                 addScore() // call add score method when player shoots enemy boss
                 body2.node?.removeFromParent() // find the node accosiated with the body2 and delete it
                 enemyBossesKilled += 1 // increase count for enemy bosses killed
-                itemFactoryInstance.makeItem() // Call Random Item Spawn when Enemy Boss is killed
                 yesSpawnEnemyBoss = false
                 spawnExplosion(spawnPosition: body2.node!.position) // spawn explosion at the position of body2 (enemy boss)
             }
@@ -459,6 +496,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // if player and doubleLaserItem have made contact
         if body1.categoryBitMask == PhysicsLayers.Player && body2.categoryBitMask == PhysicsLayers.DBLaserItemLayer {
             
+            //fireDoublePlayerLaser()
+            
             if body1.node != nil {
                 
             }
@@ -467,7 +506,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
             }
             
-            body1.node?.removeFromParent() // find the node accosiated with the body1 and delete it
+            //body1.node?.removeFromParent() // find the node accosiated with the body1 and delete it
             body2.node?.removeFromParent() // find the node accosiated with the body2 and delete it
         }
         
@@ -578,8 +617,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    func upgradPlayerShip () {
+        
+        // Player Upgraded Ship Settings
+        //let upgradedPlayerShipNode = SKSpriteNode (imageNamed: "")
+        
+    }
+    
     func fireDoublePlayerLaser () {
         
+        // Player Double Laser Settings
+        let doublLaserNode = SKSpriteNode (imageNamed: doubleLaserImageAtlas.textureNames[0])
+        doublLaserNode.name = "DoubleLaserRef"
+        doublLaserNode.setScale(1)
+        doublLaserNode.position = CGPoint(x: player.size.width * 1.5, y: player.size.height) //player.position * 1.5 && player.position * -1.5 // Spawn player laser at postion of the player
+        doublLaserNode.zPosition = 1 // Spawn under player ship
+        doublLaserNode.physicsBody = SKPhysicsBody(rectangleOf: doublLaserNode.size) // add physicsBody (Collision Detection Box) to the size of playerLaser
+        doublLaserNode.physicsBody!.affectedByGravity = false // make sure the attached physicsBody does not use gravity to pull playerLaser down
+        doublLaserNode.physicsBody!.categoryBitMask = PhysicsLayers.PlayerLaser // assigned playerLaser to phyiscs layer Laser
+        doublLaserNode.physicsBody!.collisionBitMask = PhysicsLayers.None // Collision cannot occur with any layer
+        doublLaserNode.physicsBody!.contactTestBitMask = PhysicsLayers.Enemy // playerLaser phyiscs layer can make contact with phyiscs layers of enemy
+        self.addChild(doublLaserNode) // add playerLaser to scene
+        
+        let movePlayerLaser = SKAction.moveTo(y: self.size.height + doublLaserNode.size.height, duration: 1) // move Laser up along Y axis for 1 sec
+        let deletePlayerLaser = SKAction.removeFromParent() // delete after 1 sec
+        //let animateLaser = (SKAction.repeatForever(SKAction.animate(with: playerLaserImageArray, timePerFrame: 0.1))) // Animate Laser
+        let laserSequence = SKAction.sequence([laserSound, movePlayerLaser, deletePlayerLaser]) // sequence of events for shooting player lasers
+        doublLaserNode.run(laserSequence)
+        
+        doublLaserNode.run(SKAction.repeatForever(SKAction.animate(with: doubleLaserImageArray, timePerFrame: 0.1))) // Animate Laser
     }
     
     func firePlayerLaser () {
@@ -657,6 +723,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let moveEnemyBossRight = SKAction.move(to: rightEndPoint, duration: enemyBossXSpeed) // move enemyBoss to right end point
         //let moveEnemyBossTowardsButtom = SKAction.move(to: player.position, duration: enemyBossYSpeed) // move towards the player
         let fireLaser = SKAction.run(fireEnemyLaser) // variable for running method firEnemyLaser
+        let spawnOnePlusLifeItem = SKAction.run(onePlusLifeItemSpawn) // variable for running method to spawn OPLItem
+        let spawnDoubleLaserImtem = SKAction.run(doubleLaserItemSpawn) // variable for running method to spawn DbLItem
         let deleteEnemyBoss = SKAction.removeFromParent() // delete enemyBoss
         
         if !yesSpawnEnemyBoss {
@@ -670,6 +738,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let spawnSequenceEnemyLaser = SKAction.sequence([fireLaser, waitToShootEnemyLaser])
             let spawnForeverEnemyLaser = SKAction.repeatForever(spawnSequenceEnemyLaser)
             
+            if onePLusLifeAdded {
+                enemyBoss.run(spawnOnePlusLifeItem)
+            }
+            
+            if doubleLaserAdded {
+                enemyBoss.run(spawnDoubleLaserImtem)
+            }
+            
             if currentGameState == GameState.inGame { // only this sequence if game is actually running
                 enemyBoss.run(moveEnemyBossWhileAlive)
                 if enemyBoss.position.y > self.size.height * 0.8 { // only when in correct position start firing enemy laser
@@ -677,6 +753,49 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
+    }
+    
+    func onePlusLifeItemSpawn () {
+        
+        let onePlusLifeItem = SKSpriteNode (imageNamed: "OnePlusLifeItem")
+        onePlusLifeItem.name = "OnePlusLifeItemRef"
+        onePlusLifeItem.setScale(0.8)
+        onePlusLifeItem.position = CGPoint (x:self.size.width / 2, y: self.size.height * 0.6) //(self.childNode(withName: "EnemyBossRef")?.position)!
+        onePlusLifeItem.zPosition = 2
+        onePlusLifeItem.physicsBody = SKPhysicsBody(rectangleOf: onePlusLifeItem.size)
+        onePlusLifeItem.physicsBody!.affectedByGravity = false
+        onePlusLifeItem.physicsBody!.categoryBitMask = GameScene.PhysicsLayers.OPLifeItemLayer
+        onePlusLifeItem.physicsBody!.collisionBitMask = GameScene.PhysicsLayers.None
+        onePlusLifeItem.physicsBody!.contactTestBitMask = GameScene.PhysicsLayers.Player
+        
+        //GameScene.addChild(onePlusLifeItem)
+        
+        let moveEnemyOPLItem = SKAction.moveTo(y: -self.size.height + onePlusLifeItem.size.height, duration: 3) // move Laser down along Y axis for set duration
+        let deleteOPLItem = SKAction.removeFromParent() // delete after 1 sec
+        
+        let oPLItemSequence = SKAction.sequence([moveEnemyOPLItem, deleteOPLItem]) // sequence of events for shooting player lasers
+        onePlusLifeItem.run(oPLItemSequence)
+    }
+    
+    func doubleLaserItemSpawn () {
+        
+        let doubleLaserItem = SKSpriteNode (imageNamed: "DoubleLaserItem")
+        doubleLaserItem.name = "DoubleLaserItemRef"
+        doubleLaserItem.setScale(0.8)
+        doubleLaserItem.position = (self.childNode(withName: "EnemyBossRef")?.position)!
+        doubleLaserItem.zPosition = 2
+        doubleLaserItem.physicsBody = SKPhysicsBody(rectangleOf: doubleLaserItem.size)
+        doubleLaserItem.physicsBody!.affectedByGravity = false
+        doubleLaserItem.physicsBody!.categoryBitMask = PhysicsLayers.DBLaserItemLayer
+        doubleLaserItem.physicsBody!.collisionBitMask = PhysicsLayers.None
+        doubleLaserItem.physicsBody!.contactTestBitMask = PhysicsLayers.Player
+        
+        self.addChild(doubleLaserItem)
+        
+        let moveEnemyDBItem = SKAction.moveTo(y: -self.size.height + doubleLaserItem.size.height, duration: 3) // move Laser down along Y axis for set duration
+        let deleteDBItem = SKAction.removeFromParent() // delete after 1 sec
+        let dbItemSequence = SKAction.sequence([moveEnemyDBItem, deleteDBItem]) // sequence of events for shooting player lasers
+        doubleLaserItem.run(dbItemSequence)
     }
     
     func spawnEnemy () {

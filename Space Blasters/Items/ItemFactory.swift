@@ -10,6 +10,8 @@ import Foundation
 import SpriteKit
 
 var itemFactoryInstance = ItemFactory()
+var doubleLaserAdded : Bool = false // flag for wither double laser item has been added or not
+var onePLusLifeAdded : Bool = false // flag for wither one plus life item had been added or not
 
 class ItemFactory {
     
@@ -30,7 +32,7 @@ class ItemFactory {
     
     //var currentItem = Item.noItem // store current item with intial value of no item
     
-    func makeItem () {
+    func selectRandItem () {
         
         //let rand = Int.random (min: Item.noItem.rawValue, max: Item.plusOneLife.rawValue)
         //let randItem = Int32.random(min: 1, max: Int32(itemsArray.count))
@@ -39,50 +41,20 @@ class ItemFactory {
         
         if randItem == 0 { // No Item Settings
             print("No Item Selected...\(randItem)")
+            onePLusLifeAdded = false
+            doubleLaserAdded = false
         }
         
         if randItem == 1 { // Doulbe Laser Item Settings
             print("Double Lasers Item Selected...\(randItem)")
-            let doubleLaserItem = SKSpriteNode (imageNamed: "DoubleLaserItem")
-            doubleLaserItem.name = "DoubleLaserItemRef"
-            doubleLaserItem.setScale(0.8)
-            doubleLaserItem.position = (GameScene.self.childNode(withName: "EnemyBossRef")?.position)!
-            doubleLaserItem.zPosition = 2
-            doubleLaserItem.physicsBody = SKPhysicsBody(rectangleOf: doubleLaserItem.size)
-            doubleLaserItem.physicsBody!.affectedByGravity = false
-            doubleLaserItem.physicsBody!.categoryBitMask = GameScene.PhysicsLayers.DBLaserItemLayer
-            doubleLaserItem.physicsBody!.collisionBitMask = GameScene.PhysicsLayers.None
-            doubleLaserItem.physicsBody!.contactTestBitMask = GameScene.PhysicsLayers.Player
-            
-            //GameScene.addChild(doubleLaserItem)
-            
-            let moveEnemyDBItem = SKAction.moveTo(y: -self.size.height + doubleLaserItem.size.height, duration: 3) // move Laser down along Y axis for set duration
-            let deleteDBItem = SKAction.removeFromParent() // delete after 1 sec
-            
-            let dbItemSequence = SKAction.sequence([moveEnemyDBItem, deleteDBItem]) // sequence of events for shooting player lasers
-            doubleLaserItem.run(dbItemSequence)
+            onePLusLifeAdded = false
+            doubleLaserAdded = true
         }
         
         if randItem == 2 { // One Plus Life Item Settings
             print("One Plus Life Item Selected...\(randItem)")
-            let onePlusLifeItem = SKSpriteNode (imageNamed: "OnePlusLifeItem")
-            onePlusLifeItem.name = "OnePlusLifeItemRef"
-            onePlusLifeItem.setScale(0.8)
-            onePlusLifeItem.position = (GameScene.self.childNode(withName: "EnemyBossRef")?.position)!
-            onePlusLifeItem.zPosition = 2
-            onePlusLifeItem.physicsBody = SKPhysicsBody(rectangleOf: onePlusLifeItem.size)
-            onePlusLifeItem.physicsBody!.affectedByGravity = false
-            onePlusLifeItem.physicsBody!.categoryBitMask = GameScene.PhysicsLayers.OPLifeItemLayer
-            onePlusLifeItem.physicsBody!.collisionBitMask = GameScene.PhysicsLayers.None
-            onePlusLifeItem.physicsBody!.contactTestBitMask = GameScene.PhysicsLayers.Player
-            
-            //GameScene.addChild(onePlusLifeItem)
-            
-            let moveEnemyDBItem = SKAction.moveTo(y: -self.size.height + onePlusLifeItem.size.height, duration: 3) // move Laser down along Y axis for set duration
-            let deleteDBItem = SKAction.removeFromParent() // delete after 1 sec
-            
-            let dbItemSequence = SKAction.sequence([moveEnemyDBItem, deleteDBItem]) // sequence of events for shooting player lasers
-            onePlusLifeItem.run(dbItemSequence)
+            onePLusLifeAdded = true
+            doubleLaserAdded = false
 
         }
         

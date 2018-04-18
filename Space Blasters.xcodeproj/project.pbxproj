@@ -47,6 +47,7 @@
 		A62B64872086EA4400A6B882 /* PlayerAnim2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = A62B64862086EA4300A6B882 /* PlayerAnim2.atlas */; };
 		A62B648A2086EB3800A6B882 /* ItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62B64892086EB3800A6B882 /* ItemFactory.swift */; };
 		A62B648C2086F24B00A6B882 /* IntRandom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62B648B2086F24B00A6B882 /* IntRandom.swift */; };
+		A6F039CE2087B7E8002A129E /* DBPlayerLasersAnim.atlas in Resources */ = {isa = PBXBuildFile; fileRef = A6F039CD2087B7E8002A129E /* DBPlayerLasersAnim.atlas */; };
 		A6FB60F32082D8E3004C3158 /* backgroundMusic.wav in Resources */ = {isa = PBXBuildFile; fileRef = A6FB60F22082D8E3004C3158 /* backgroundMusic.wav */; };
 		A6FB60F72082F9C4004C3158 /* CreditsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FB60F62082F9C4004C3158 /* CreditsScene.swift */; };
 /* End PBXBuildFile section */
@@ -115,6 +116,7 @@
 		A62B64862086EA4300A6B882 /* PlayerAnim2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerAnim2.atlas; sourceTree = "<group>"; };
 		A62B64892086EB3800A6B882 /* ItemFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemFactory.swift; sourceTree = "<group>"; };
 		A62B648B2086F24B00A6B882 /* IntRandom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntRandom.swift; sourceTree = "<group>"; };
+		A6F039CD2087B7E8002A129E /* DBPlayerLasersAnim.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = DBPlayerLasersAnim.atlas; sourceTree = "<group>"; };
 		A6FB60F22082D8E3004C3158 /* backgroundMusic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = backgroundMusic.wav; sourceTree = "<group>"; };
 		A6FB60F62082F9C4004C3158 /* CreditsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -185,6 +187,7 @@
 				A62B64862086EA4300A6B882 /* PlayerAnim2.atlas */,
 				A61E438D2084729500063397 /* EnemyLasersImages.atlas */,
 				A61E438C2084729500063397 /* PlayerLasersImages.atlas */,
+				A6F039CD2087B7E8002A129E /* DBPlayerLasersAnim.atlas */,
 				A61E438220846D3000063397 /* Assets.xcassets */,
 				A61E43752084302300063397 /* Physics */,
 				A62B64882086EB1900A6B882 /* Items */,
@@ -435,6 +438,7 @@
 				2CEB95FD207EDEB500D232F3 /* GoogleService-Info.plist in Resources */,
 				A61E438E2084729500063397 /* PlayerLasersImages.atlas in Resources */,
 				2C4B5DF5207BDEFF00E01C5F /* Main.storyboard in Resources */,
+				A6F039CE2087B7E8002A129E /* DBPlayerLasersAnim.atlas in Resources */,
 				A61E438320846D3100063397 /* Assets.xcassets in Resources */,
 				2C4402DF2086C80D0010B6ED /* PlayerAnim.atlas in Resources */,
 				2C4B5DEC207BDEFF00E01C5F /* GameScene.sks in Resources */,
