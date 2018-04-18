@@ -78,6 +78,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         static let Enemy : UInt32 = 0b100 // 4 in binary
         static let EnemyLaser : UInt32 = 0b1000 // 8 in binary
         static let EnemyBoss : UInt32 = 0b10000 // 16 in binary
+        static let DBLaserItemLayer : UInt32 = 0b100000 // 32 in binary
+        static let OPLifeItemLayer : UInt32 = 0b1000000 // 64 in binary
     }
     
     let gameSpace : CGRect
@@ -429,6 +431,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 addScore() // call add score method when player shoots enemy boss
                 body2.node?.removeFromParent() // find the node accosiated with the body2 and delete it
                 enemyBossesKilled += 1 // increase count for enemy bosses killed
+                itemFactoryInstance.makeItem() // Call Random Item Spawn when Enemy Boss is killed
                 yesSpawnEnemyBoss = false
                 spawnExplosion(spawnPosition: body2.node!.position) // spawn explosion at the position of body2 (enemy boss)
             }
@@ -450,6 +453,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
 
             // ? (optional) because two bodies of the same layer might make contact at the same time which could crash the game
+            body2.node?.removeFromParent() // find the node accosiated with the body2 and delete it
+        }
+        
+        // if player and doubleLaserItem have made contact
+        if body1.categoryBitMask == PhysicsLayers.Player && body2.categoryBitMask == PhysicsLayers.DBLaserItemLayer {
+            
+            if body1.node != nil {
+                
+            }
+            
+            if body2.node != nil {
+                
+            }
+            
+            body1.node?.removeFromParent() // find the node accosiated with the body1 and delete it
+            body2.node?.removeFromParent() // find the node accosiated with the body2 and delete it
+        }
+        
+        // if player and onePlusLifeItem have made contact
+        if body1.categoryBitMask == PhysicsLayers.Player && body2.categoryBitMask == PhysicsLayers.OPLifeItemLayer  {
+            
+            livesCount += 1
+            
+            //body1.node?.removeFromParent() // find the node accosiated with the body1 and delete it
             body2.node?.removeFromParent() // find the node accosiated with the body2 and delete it
         }
     }
@@ -551,6 +578,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    func fireDoublePlayerLaser () {
+        
+    }
+    
     func firePlayerLaser () {
         
         // Player Laser Settings
@@ -587,7 +618,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemyLaser.physicsBody!.affectedByGravity = false // make sure the attached physicsBody does not use gravity to pull enemyLaser down
         enemyLaser.physicsBody!.categoryBitMask = PhysicsLayers.EnemyLaser // assigned enemyLaser to phyiscs layer Laser
         enemyLaser.physicsBody!.collisionBitMask = PhysicsLayers.None // Collision cannot occur with any layer
-        enemyLaser.physicsBody!.contactTestBitMask = PhysicsLayers.Player // enemyLaser phyiscs layer can make contact with phyiscs layers of enemy
+        enemyLaser.physicsBody!.contactTestBitMask = PhysicsLayers.Player // enemyLaser phyiscs layer can make contact with phyiscs layers of player
         self.addChild(enemyLaser) // add enemyLaser to scene
 
         let moveEnemyLaser = SKAction.moveTo(y: -self.size.height + enemyLaser.size.height, duration: 1.5) // move Laser down along Y axis for set duration
