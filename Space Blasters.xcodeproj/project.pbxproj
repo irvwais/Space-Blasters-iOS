@@ -10,6 +10,7 @@
 		2C306371207D8805008D154D /* CollisionDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C306370207D8805008D154D /* CollisionDetection.swift */; };
 		2C306373207D9A05008D154D /* boomSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 2C306372207D9A05008D154D /* boomSound.wav */; };
 		2C4402DD2086BE700010B6ED /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4402DC2086BE700010B6ED /* GoogleMobileAds.framework */; };
+		2C4402DF2086C80D0010B6ED /* PlayerAnim.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 2C4402DE2086C80D0010B6ED /* PlayerAnim.atlas */; };
 		2C4B5DEA207BDEFF00E01C5F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4B5DE9207BDEFF00E01C5F /* AppDelegate.swift */; };
 		2C4B5DEC207BDEFF00E01C5F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2C4B5DEB207BDEFF00E01C5F /* GameScene.sks */; };
 		2C4B5DEE207BDEFF00E01C5F /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 2C4B5DED207BDEFF00E01C5F /* Actions.sks */; };
@@ -68,6 +69,7 @@
 		2C306370207D8805008D154D /* CollisionDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionDetection.swift; sourceTree = "<group>"; };
 		2C306372207D9A05008D154D /* boomSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = boomSound.wav; sourceTree = "<group>"; };
 		2C4402DC2086BE700010B6ED /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
+		2C4402DE2086C80D0010B6ED /* PlayerAnim.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = PlayerAnim.atlas; sourceTree = "<group>"; };
 		2C4B5DE6207BDEFF00E01C5F /* Space Blasters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Space Blasters.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C4B5DE9207BDEFF00E01C5F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C4B5DEB207BDEFF00E01C5F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 		2C4B5DE8207BDEFF00E01C5F /* Space Blasters */ = {
 			isa = PBXGroup;
 			children = (
+				2C4402DE2086C80D0010B6ED /* PlayerAnim.atlas */,
 				A61E438D2084729500063397 /* EnemyLasersImages.atlas */,
 				A61E438C2084729500063397 /* PlayerLasersImages.atlas */,
 				A61E438220846D3000063397 /* Assets.xcassets */,
@@ -416,6 +419,7 @@
 				A61E438E2084729500063397 /* PlayerLasersImages.atlas in Resources */,
 				2C4B5DF5207BDEFF00E01C5F /* Main.storyboard in Resources */,
 				A61E438320846D3100063397 /* Assets.xcassets in Resources */,
+				2C4402DF2086C80D0010B6ED /* PlayerAnim.atlas in Resources */,
 				2C4B5DEC207BDEFF00E01C5F /* GameScene.sks in Resources */,
 				A61E43602083D11500063397 /* JetEmitter.sks in Resources */,
 				A6FB60F32082D8E3004C3158 /* backgroundMusic.wav in Resources */,

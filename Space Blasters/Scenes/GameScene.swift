@@ -54,6 +54,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let boomSound = SKAction.playSoundFileNamed("boomSound.wav", waitForCompletion: false)
     
     // Images
+    var playerShipImageAtlas = SKTextureAtlas()
+    var playerShipImageArray = [SKTexture]()
     var playerLaserImageAtlas = SKTextureAtlas()
     var playerLaserImageArray = [SKTexture]()
     var enemyLaserImageAtlas = SKTextureAtlas()
@@ -102,6 +104,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemyLetThroughCount = 0 // Reset Enemy Let Through Count back to zero
         
         self.physicsWorld.contactDelegate = self // Set Up Physics to be delegated to this class
+        
+        playerShipImageAtlas = SKTextureAtlas(named: "PlayerAnim")
+        
+        for i in 1...playerShipImageAtlas.textureNames.count {
+            let imagePlayerShipName = "PlayerShip1_\(i).png"
+            playerShipImageArray.append(SKTexture(imageNamed: imagePlayerShipName))
+        }
+        
+        enemyLaserImageAtlas = SKTextureAtlas(named: "EnemyLasersImages")
+        
+        for i in 1...enemyLaserImageAtlas.textureNames.count {
+            let imageEnemyLaserName = "EnemyLasers_\(i).png"
+            enemyLaserImageArray.append(SKTexture(imageNamed: imageEnemyLaserName))
+        }
         
         playerLaserImageAtlas = SKTextureAtlas(named: "PlayerLasersImages")
         
@@ -279,6 +295,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let returnColor = SKAction.colorize(with: UIColor.white, colorBlendFactor: 1, duration: 0)
         let scaleTextSequence = SKAction.sequence([changeColor, scaleUp, scaleDown, returnColor])
         livesText.run(scaleTextSequence)
+        
+        player.run(SKAction.repeat(SKAction.animate(with: playerShipImageArray, timePerFrame: 0.1), count: 5))
         
         if livesCount == 0 {
             runGameOver()
