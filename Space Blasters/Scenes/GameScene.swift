@@ -6,6 +6,11 @@
 //  Copyright © 2018 Irving Waisman. All rights reserved.
 //
 
+/////////////////
+////app ID              : ca-app-pub-5176335160186260~9759962531
+////banner ad unit ID   : ca-app-pub-5176335160186260/5577228846
+/////////////////
+
 import SpriteKit
 import GameplayKit
 
@@ -13,6 +18,8 @@ import GameplayKit
 var gameScore = 0 // score count starts at zero
 var enemyLetThroughCount = 0 // Counter that tracks how many enemies got passed you
 var enemyBossesKilled = 0 // count for enemy bosses killed
+
+//var gameSceneClass = GameScene()
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
@@ -35,7 +42,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // Enemy Boss Stats
     var enemyBossXSpeed: Double = 5 // speed for enemy boss along X-Axis
-    var enemyBossYSpeed: Double = 30 // speed for enemy boss along Y-Axis
+    //var enemyBossYSpeed: Double = 30 // speed for enemy boss along Y-Axis
     var yesSpawnEnemyBoss : Bool = false // flag for spawning enemyBoss
     var enemBossLives = 3 // amount lives for the enemy boss
     
@@ -47,6 +54,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let boomSound = SKAction.playSoundFileNamed("boomSound.wav", waitForCompletion: false)
     
     // Images
+    var playerShipImageAtlas = SKTextureAtlas()
+    var playerShipImageArray = [SKTexture]()
     var playerLaserImageAtlas = SKTextureAtlas()
     var playerLaserImageArray = [SKTexture]()
     var enemyLaserImageAtlas = SKTextureAtlas()
@@ -95,6 +104,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         enemyLetThroughCount = 0 // Reset Enemy Let Through Count back to zero
         
         self.physicsWorld.contactDelegate = self // Set Up Physics to be delegated to this class
+        
+        playerShipImageAtlas = SKTextureAtlas(named: "PlayerAnim")
+        
+        for i in 1...playerShipImageAtlas.textureNames.count {
+            let imagePlayerShipName = "PlayerShip1_\(i).png"
+            playerShipImageArray.append(SKTexture(imageNamed: imagePlayerShipName))
+        }
+        
+        enemyLaserImageAtlas = SKTextureAtlas(named: "EnemyLasersImages")
+        
+        for i in 1...enemyLaserImageAtlas.textureNames.count {
+            let imageEnemyLaserName = "EnemyLasers_\(i).png"
+            enemyLaserImageArray.append(SKTexture(imageNamed: imageEnemyLaserName))
+        }
         
         playerLaserImageAtlas = SKTextureAtlas(named: "PlayerLasersImages")
         
@@ -272,6 +295,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let returnColor = SKAction.colorize(with: UIColor.white, colorBlendFactor: 1, duration: 0)
         let scaleTextSequence = SKAction.sequence([changeColor, scaleUp, scaleDown, returnColor])
         livesText.run(scaleTextSequence)
+        
+        player.run(SKAction.repeat(SKAction.animate(with: playerShipImageArray, timePerFrame: 0.1), count: 5))
         
         if livesCount == 0 {
             runGameOver()
@@ -472,7 +497,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spawnEnemyDuration = 2.0
             enemyShipSpeed = 4.0
             enemyBossXSpeed = 4
-            enemyBossYSpeed = 25
+            //enemyBossYSpeed = 25
             enemBossLives = 5 // reset enemy boss lives to 5
             yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         case 5: // Level 5
@@ -482,7 +507,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spawnEnemyDuration = 1.5
             enemyShipSpeed = 3.3
             enemyBossXSpeed = 3
-            enemyBossYSpeed = 20
+            //enemyBossYSpeed = 20
             enemBossLives = 7 // reset enemy boss lives to 7
             yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         case 7: // Level 7
@@ -493,7 +518,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             enemyShipSpeed = 2.8
             enemyBossXSpeed = 2
             enemBossLives = 9 // reset enemy boss lives to 9
-            enemyBossYSpeed = 15
+            //enemyBossYSpeed = 15
             yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         case 9: // Level 9
             spawnEnemyDuration = 0.8
@@ -503,7 +528,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             enemyShipSpeed = 2
             enemyBossXSpeed = 1
             enemBossLives = 12 // reset enemy boss lives to 12
-            enemyBossYSpeed = 12
+            //enemyBossYSpeed = 12
             yesSpawnEnemyBoss = true // flag for spawning enemyBoss
         default:
             spawnEnemyDuration = 3
@@ -576,8 +601,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func spawnEnemyBoss () {
         
-        let leftEndPoint = CGPoint (x: self.size.width * 0.23, y: self.size.height * 0.8) // leftPoint of travel for enemyBoss
-        let rightEndPoint = CGPoint (x: self.size.width * 0.77, y: self.size.height * 0.8) // rightPoint of travel for enemyBoss
+        let randomXPos = CGFloat.random(min: 0.4, max: 0.8)
+        
+        let leftEndPoint = CGPoint (x: self.size.width * 0.23, y: self.size.height * randomXPos) // leftPoint of travel for enemyBoss
+        let rightEndPoint = CGPoint (x: self.size.width * 0.77, y: self.size.height * randomXPos) // rightPoint of travel for enemyBoss
         
         //let randomFireLaser = CGFloat.random(min: 1, max:3) // random time for firing lasers
         
@@ -597,14 +624,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let moveEnemyBossOntoScreen = SKAction.moveTo(y: self.size.height * 0.8 , duration: 0.5)
         let moveEnemyBossLeft = SKAction.move(to: leftEndPoint, duration: enemyBossXSpeed) // move enemyBoss to left end point
         let moveEnemyBossRight = SKAction.move(to: rightEndPoint, duration: enemyBossXSpeed) // move enemyBoss to right end point
-        let moveEnemyBossTowardsButtom = SKAction.move(to: player.position, duration: enemyBossYSpeed) // move towards the player
+        //let moveEnemyBossTowardsButtom = SKAction.move(to: player.position, duration: enemyBossYSpeed) // move towards the player
         let fireLaser = SKAction.run(fireEnemyLaser) // variable for running method firEnemyLaser
         let deleteEnemyBoss = SKAction.removeFromParent() // delete enemyBoss
         
         if !yesSpawnEnemyBoss {
             enemyBoss.run(deleteEnemyBoss)
         } else {
-            let enemyBossSequence = SKAction.sequence([moveEnemyBossOntoScreen, moveEnemyBossTowardsButtom, moveEnemyBossLeft, moveEnemyBossRight]) // sequence of enemy boss movment
+            let enemyBossSequence = SKAction.sequence([moveEnemyBossOntoScreen, moveEnemyBossLeft, moveEnemyBossRight]) // sequence of enemy boss movment
             let moveEnemyBossWhileAlive = SKAction.repeatForever(enemyBossSequence) // move enemy boss while it has lives
             
             // Fire Enemy Laser at Random Time Intervals
@@ -614,7 +641,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             if currentGameState == GameState.inGame { // only this sequence if game is actually running
                 enemyBoss.run(moveEnemyBossWhileAlive)
-                if enemyBoss.position.y > self.size.height * 0.95 { // only when in correct position start firing enemy laser
+                if enemyBoss.position.y > self.size.height * 0.8 { // only when in correct position start firing enemy laser
                     enemyBoss.run(spawnForeverEnemyLaser)
                 }
             }

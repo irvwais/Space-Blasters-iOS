@@ -10,10 +10,13 @@ import UIKit
 import SpriteKit
 import GameplayKit
 import AVFoundation
+import GoogleMobileAds
 
-class GameViewController: UIViewController {
+class GameViewController: UIViewController, GADBannerViewDelegate {
     
     var backgroundMusic = AVAudioPlayer()
+    
+    @IBOutlet weak var bannerView: GADBannerView!
     
     /*
     override func viewDidLoad() {
@@ -39,6 +42,15 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        // Find BannerView and SetUp Correctly
+        bannerView.isHidden = true
+        bannerView.delegate = self
+        bannerView.adUnitID = "ca-app-pub-5176335160186260/5577228846"
+        bannerView.adSize = kGADAdSizeSmartBannerPortrait
+        bannerView.rootViewController = self
+        bannerView.load(GADRequest())
+        //request.testDevices = in @[ kGADSimulatorID ]
         
         // Find music to laod correctly
         let filePathForBackgroundMusic = Bundle.main.path(forResource: "backgroundMusic", ofType: "wav")
@@ -73,6 +85,16 @@ class GameViewController: UIViewController {
             view.showsFPS = true
             view.showsNodeCount = true
         }
+    }
+    
+    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+        
+        bannerView.isHidden = false
+    }
+    
+    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+        
+        bannerView.isHidden = true
     }
 
     override var shouldAutorotate: Bool {
