@@ -15,7 +15,7 @@ var onePLusLifeAdded : Bool = false // flag for wither one plus life item had be
 
 class ItemFactory {
     
-    let itemsArray = [2]
+    let itemsArray = [1]
     
 //    struct Items {
 //
@@ -37,7 +37,7 @@ class ItemFactory {
         //let rand = Int.random (min: Item.noItem.rawValue, max: Item.plusOneLife.rawValue)
         //let randItem = Int32.random(min: 1, max: Int32(itemsArray.count))
         //let rand : UInt32 = arc4random() % 3
-        let randItem : UInt32 = arc4random_uniform(3)
+        let randItem : UInt32 = arc4random_uniform(2)
         
         if randItem == 0 { // No Item Settings
             print("No Item Selected...\(randItem)")
@@ -45,18 +45,18 @@ class ItemFactory {
             doubleLaserAdded = false
         }
         
-        if randItem == 1 { // Doulbe Laser Item Settings
-            print("Double Lasers Item Selected...\(randItem)")
-            onePLusLifeAdded = false
-            doubleLaserAdded = true
-        }
-        
-        if randItem == 2 { // One Plus Life Item Settings
+        if randItem == 1 { // One Plus Life Item Settings
             print("One Plus Life Item Selected...\(randItem)")
             onePLusLifeAdded = true
             doubleLaserAdded = false
 
         }
+        
+//        if randItem == 2 { // Doulbe Laser Item Settings
+//            print("Double Lasers Item Selected...\(randItem)")
+//            onePLusLifeAdded = false
+//            doubleLaserAdded = true
+//        }
         
     }
 }

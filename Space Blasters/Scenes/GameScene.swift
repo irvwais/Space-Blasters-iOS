@@ -199,7 +199,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(scoreText) // add score text to scene
         
         // Lives Text Settings
-        livesText.text = "Lives: 5"
+        livesText.text = "HP: 5"
         livesText.fontSize = 70
         livesText.fontColor = SKColor.white
         livesText.horizontalAlignmentMode = SKLabelHorizontalAlignmentMode.right
@@ -263,6 +263,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 background.position.y += self.size.height * 2
             }
         }
+        
+        if onePLusLifeAdded {
+            print("One Plus Life Item Spawn")
+            onePlusLifeItemSpawn()
+            onePLusLifeAdded = false
+        }
     }
     
     func startGame () {
@@ -310,7 +316,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func loseLives () {
         
         livesCount -= 1
-        livesText.text = "Lives: \(livesCount)"
+        livesText.text = "HP: \(livesCount)"
         
         // Animate lives text to make player pay attention to live count
         let scaleUp = SKAction.scale(to: 1.5, duration: 0.3)
@@ -325,6 +331,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if livesCount == 0 {
             runGameOver()
         }
+    }
+    
+    func gainLives () {
+        
+        livesCount += 1
+        
+        livesText.text = "HP: \(livesCount)"
+        
+        // Animate lives text to make player pay attention to live count
+        let scaleUp = SKAction.scale(to: 1.5, duration: 0.3)
+        let scaleDown = SKAction.scale(to: 1, duration: 0.3)
+        let changeColor = SKAction.colorize(with: UIColor.blue, colorBlendFactor: 1, duration: 0)
+        let returnColor = SKAction.colorize(with: UIColor.white, colorBlendFactor: 1, duration: 0)
+        let scaleTextSequence = SKAction.sequence([changeColor, scaleUp, scaleDown, returnColor])
+        livesText.run(scaleTextSequence)
     }
     
     func countForEnemiesPassed () {
@@ -513,7 +534,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // if player and onePlusLifeItem have made contact
         if body1.categoryBitMask == PhysicsLayers.Player && body2.categoryBitMask == PhysicsLayers.OPLifeItemLayer  {
             
-            livesCount += 1
+            
+            if body2.node != nil {
+                gainLives()
+            }
             
             //body1.node?.removeFromParent() // find the node accosiated with the body1 and delete it
             body2.node?.removeFromParent() // find the node accosiated with the body2 and delete it
@@ -723,8 +747,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let moveEnemyBossRight = SKAction.move(to: rightEndPoint, duration: enemyBossXSpeed) // move enemyBoss to right end point
         //let moveEnemyBossTowardsButtom = SKAction.move(to: player.position, duration: enemyBossYSpeed) // move towards the player
         let fireLaser = SKAction.run(fireEnemyLaser) // variable for running method firEnemyLaser
-        let spawnOnePlusLifeItem = SKAction.run(onePlusLifeItemSpawn) // variable for running method to spawn OPLItem
-        let spawnDoubleLaserImtem = SKAction.run(doubleLaserItemSpawn) // variable for running method to spawn DbLItem
+        //let spawnOnePlusLifeItem = SKAction.run(onePlusLifeItemSpawn) // variable for running method to spawn OPLItem
+        //let spawnDoubleLaserImtem = SKAction.run(doubleLaserItemSpawn) // variable for running method to spawn DbLItem
         let deleteEnemyBoss = SKAction.removeFromParent() // delete enemyBoss
         
         if !yesSpawnEnemyBoss {
@@ -738,13 +762,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let spawnSequenceEnemyLaser = SKAction.sequence([fireLaser, waitToShootEnemyLaser])
             let spawnForeverEnemyLaser = SKAction.repeatForever(spawnSequenceEnemyLaser)
             
-            if onePLusLifeAdded {
-                enemyBoss.run(spawnOnePlusLifeItem)
-            }
+//            if onePLusLifeAdded {
+//                enemyBoss.run(spawnOnePlusLifeItem)
+//            }
             
-            if doubleLaserAdded {
-                enemyBoss.run(spawnDoubleLaserImtem)
-            }
+//            if doubleLaserAdded {
+//                enemyBoss.run(spawnDoubleLaserImtem)
+//            }
             
             if currentGameState == GameState.inGame { // only this sequence if game is actually running
                 enemyBoss.run(moveEnemyBossWhileAlive)
@@ -759,8 +783,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let onePlusLifeItem = SKSpriteNode (imageNamed: "OnePlusLifeItem")
         onePlusLifeItem.name = "OnePlusLifeItemRef"
-        onePlusLifeItem.setScale(0.8)
-        onePlusLifeItem.position = CGPoint (x:self.size.width / 2, y: self.size.height * 0.6) //(self.childNode(withName: "EnemyBossRef")?.position)!
+        onePlusLifeItem.setScale(1)
+        onePlusLifeItem.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.5)
         onePlusLifeItem.zPosition = 2
         onePlusLifeItem.physicsBody = SKPhysicsBody(rectangleOf: onePlusLifeItem.size)
         onePlusLifeItem.physicsBody!.affectedByGravity = false
@@ -768,7 +792,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         onePlusLifeItem.physicsBody!.collisionBitMask = GameScene.PhysicsLayers.None
         onePlusLifeItem.physicsBody!.contactTestBitMask = GameScene.PhysicsLayers.Player
         
-        //GameScene.addChild(onePlusLifeItem)
+        self.addChild(onePlusLifeItem)
         
         let moveEnemyOPLItem = SKAction.moveTo(y: -self.size.height + onePlusLifeItem.size.height, duration: 3) // move Laser down along Y axis for set duration
         let deleteOPLItem = SKAction.removeFromParent() // delete after 1 sec
