@@ -25,13 +25,13 @@ class EnemyShips: Player {
         let randomXStart = CGFloat.random(min: 0.1, max: 0.9) // Random Enemy Start X-Axis position (Spawn Position)
         let randomXEnd = CGFloat.random(min: 0.1, max: 0.9) // Random Enemy End X-Axis position
         
-        let startPoint = CGPoint(x: randomXStart, y: gameSceneClass!.size.height * 1.2) // Spawn position is Random X Start Postion and just above screen space
+        let startPoint = CGPoint(x: randomXStart, y: gameSceneClass!.size.height ) // Spawn position is Random X Start Postion and just above screen space
         let endPoint = CGPoint (x: randomXEnd, y: -gameSceneClass!.size.height * 0.2) // End Postion is Random X End Position and just below screen space
         
         // Enemy Ship Settings
         let enemyShipNode = SKSpriteNode(imageNamed: "EnemyShip")
         enemyShipNode.name = "EnemyShipRef" // Reference for Enemy Boss
-        enemyShipNode.setScale(0.3) // Set Scale of Enemy Ship (1) being Normal
+        enemyShipNode.setScale(1) // Set Scale of Enemy Ship (1) being Normal
         enemyShipNode.position = startPoint // set postion of enemy ship
         enemyShipNode.zPosition = 2 // zPostion of enemy
         enemyShipNode.physicsBody = SKPhysicsBody(rectangleOf: enemyShipNode.size) // add physicsBody (Collision Detection Box) to the size of enemy ship
