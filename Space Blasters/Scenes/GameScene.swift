@@ -396,24 +396,25 @@ class GameScene: SKScene {
             print("Spawn Enemy for each level ERROR!")
         }
         
-            let ship = enemyShipsClassInstance
-            ship.gameSceneClass = self
-            ship.objectSetUp()
+        let enemShip = enemyShipsClassInstance
+        enemShip.gameSceneClass = self
+        let enemBossShip = enemyBossClassInstance
+        enemBossShip.gameSceneClass = self
         
         
-////        let spawn = SKAction.run(enemyShipsClassInstance.objectSetUp)
-//        let spawnEnemyBosses = SKAction.run(enemyBossClassInstance.objectSetUp)
-//        let waitToSpawn = SKAction.wait(forDuration: spawnEnemyDuration)
-//
-//        if enemyBossClassInstance.yesSpawnEnemyBoss {
-//            let spawnEnemyBossSequence = SKAction.sequence([waitToSpawn, spawnEnemyBosses])
-//            self.run(spawnEnemyBossSequence)
-//        } else {
-//
-//        }
-//        let spawnEnemyShipSequence = SKAction.sequence([waitToSpawn, spawn])
-//        let spawnForever = SKAction.repeatForever(spawnEnemyShipSequence)
-//        self.run(spawnForever, withKey: "spawningEnemies")
+        let spawn = SKAction.run(enemShip.objectSetUp)
+        let spawnEnemyBosses = SKAction.run(enemBossShip.objectSetUp)
+        let waitToSpawn = SKAction.wait(forDuration: spawnEnemyDuration)
+
+        if enemyBossClassInstance.yesSpawnEnemyBoss {
+            let spawnEnemyBossSequence = SKAction.sequence([waitToSpawn, spawnEnemyBosses])
+            self.run(spawnEnemyBossSequence)
+        } else {
+
+        }
+        let spawnEnemyShipSequence = SKAction.sequence([waitToSpawn, spawn])
+        let spawnForever = SKAction.repeatForever(spawnEnemyShipSequence)
+        self.run(spawnForever, withKey: "spawningEnemies")
         
     }
     
