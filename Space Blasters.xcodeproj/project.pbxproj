@@ -30,7 +30,7 @@
 		2C4D5B2A208A95DF0088DDC4 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4D5B29208A95DE0088DDC4 /* AVFoundation.framework */; };
 		2C4D5B2C208A95E70088DDC4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4D5B2B208A95E70088DDC4 /* AudioToolbox.framework */; };
 		2C4D5B2E208A95F00088DDC4 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4D5B2D208A95F00088DDC4 /* AdSupport.framework */; };
-		2C4D5B30208A97160088DDC4 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4D5B2F208A97160088DDC4 /* GoogleMobileAds.framework */; };
+		2C4D5B32208AA8090088DDC4 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4D5B31208AA8090088DDC4 /* GoogleMobileAds.framework */; };
 		2CEB95FD207EDEB500D232F3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB95FC207EDEB500D232F3 /* GoogleService-Info.plist */; };
 		2CEB95FF207EE26400D232F3 /* moon_get-Heavy.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2CEB95FE207EE23500D232F3 /* moon_get-Heavy.ttf */; };
 		2CF570B420816E8E00B9210A /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF570B320816E8E00B9210A /* GameOverScene.swift */; };
@@ -96,7 +96,7 @@
 		2C4D5B29208A95DE0088DDC4 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		2C4D5B2B208A95E70088DDC4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		2C4D5B2D208A95F00088DDC4 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		2C4D5B2F208A97160088DDC4 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
+		2C4D5B31208AA8090088DDC4 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		2CEB95FC207EDEB500D232F3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2CEB95FE207EE23500D232F3 /* moon_get-Heavy.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "moon_get-Heavy.ttf"; sourceTree = "<group>"; };
 		2CF570B320816E8E00B9210A /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 			files = (
 				2C4D5B2E208A95F00088DDC4 /* AdSupport.framework in Frameworks */,
 				2C4D5B2C208A95E70088DDC4 /* AudioToolbox.framework in Frameworks */,
-				2C4D5B30208A97160088DDC4 /* GoogleMobileAds.framework in Frameworks */,
+				2C4D5B32208AA8090088DDC4 /* GoogleMobileAds.framework in Frameworks */,
 				2C4D5B2A208A95DF0088DDC4 /* AVFoundation.framework in Frameworks */,
 				2C4D5B28208A95D90088DDC4 /* CoreGraphics.framework in Frameworks */,
 				2C4D5B26208A95D20088DDC4 /* CoreTelephony.framework in Frameworks */,
@@ -221,7 +221,7 @@
 		2CD2902F207EA939007F201E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2C4D5B2F208A97160088DDC4 /* GoogleMobileAds.framework */,
+				2C4D5B31208AA8090088DDC4 /* GoogleMobileAds.framework */,
 				2C4D5B2D208A95F00088DDC4 /* AdSupport.framework */,
 				2C4D5B2B208A95E70088DDC4 /* AudioToolbox.framework */,
 				2C4D5B29208A95DE0088DDC4 /* AVFoundation.framework */,
