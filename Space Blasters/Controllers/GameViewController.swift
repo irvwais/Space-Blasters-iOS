@@ -5,6 +5,7 @@
 //  Created by Waisman Irving on 4/9/18.
 //  Copyright © 2018 Irving Waisman. All rights reserved.
 //
+// Is this Google Ad Attempt 1
 
 import UIKit
 import SpriteKit
@@ -12,11 +13,11 @@ import GameplayKit
 import AVFoundation
 import GoogleMobileAds
 
-class GameViewController: UIViewController, GADBannerViewDelegate {
+class GameViewController: UIViewController {
     
     var backgroundMusic = AVAudioPlayer()
     
-    @IBOutlet weak var bannerView: GADBannerView!
+    //@IBOutlet weak var bannerView: GADBannerView!
     
     /*
     override func viewDidLoad() {
@@ -44,13 +45,13 @@ class GameViewController: UIViewController, GADBannerViewDelegate {
         super.viewDidLoad()
         
         // Find BannerView and SetUp Correctly
-        bannerView.isHidden = true
-        bannerView.delegate = self
-        bannerView.adUnitID = "ca-app-pub-5176335160186260/5577228846"
-        bannerView.adSize = kGADAdSizeSmartBannerPortrait
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-        //request.testDevices = in @[ kGADSimulatorID ]
+//        bannerView.isHidden = true
+//        bannerView.delegate = self
+//        bannerView.adUnitID = "ca-app-pub-5176335160186260/5577228846"
+//        bannerView.adSize = kGADAdSizeSmartBannerPortrait
+//        bannerView.rootViewController = self
+//        bannerView.load(GADRequest())
+//        //request.testDevices = in @[ kGADSimulatorID ]
         
         // Find music to laod correctly
         let filePathForBackgroundMusic = Bundle.main.path(forResource: "backgroundMusic", ofType: "wav")
@@ -74,11 +75,25 @@ class GameViewController: UIViewController, GADBannerViewDelegate {
 //        }
         
         if let view = self.view as! SKView? {
+            
+            var adBanner: GADBannerView!
+            
+            adBanner = GADBannerView(adSize:kGADAdSizeBanner)
+            
+            //banner id
+            adBanner.adUnitID = "ca-app-pub-3940256099942544/2934735716"
+            adBanner.rootViewController = self
+            addBannerViewToView(adBanner)
+            
+            let request: GADRequest = GADRequest()
+            request.testDevices = [kGADSimulatorID]
+            adBanner.load(request)
+            
             // Load the SKScene from 'GameScene.sks'
             let scene = MainMenuScene(size: CGSize(width: 1536, height: 2048))
             // Set the scale mode to scale to fit the window
             scene.scaleMode = .aspectFill
-            
+
             // Present the scene
             view.presentScene(scene)
             view.ignoresSiblingOrder = true
@@ -87,14 +102,33 @@ class GameViewController: UIViewController, GADBannerViewDelegate {
         }
     }
     
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        
-        bannerView.isHidden = false
-    }
+//    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
+//
+//        bannerView.isHidden = false
+//    }
+//
+//    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
+//
+//        bannerView.isHidden = true
+//    }
     
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        
-        bannerView.isHidden = true
+    func addBannerViewToView(_ bannerView: GADBannerView){
+        bannerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(bannerView)
+        view.addConstraints([NSLayoutConstraint(item: bannerView,
+                                                attribute: .bottom,
+                                                relatedBy: .equal,
+                                                toItem: bottomLayoutGuide,
+                                                attribute: .top,
+                                                multiplier: 1,
+                                                constant: 0),
+                             NSLayoutConstraint(item: bannerView,
+                                                attribute: .centerX,
+                                                relatedBy: .equal,
+                                                toItem: view,
+                                                attribute: .centerX,
+                                                multiplier: 1,
+                                                constant: 0)])
     }
 
     override var shouldAutorotate: Bool {

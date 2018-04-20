@@ -120,7 +120,7 @@ class GameOverScene: SKScene {
         playAgainText.fontSize = 90
         playAgainText.fontColor = SKColor.white
         playAgainText.zPosition = 1
-        playAgainText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.15)
+        playAgainText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.2)
         self.addChild(playAgainText)
         
         // Main Menu Settings
@@ -128,7 +128,7 @@ class GameOverScene: SKScene {
         mainMenuText.fontSize = 90
         mainMenuText.fontColor = SKColor.white
         mainMenuText.zPosition = 1
-        mainMenuText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.05)
+        mainMenuText.position = CGPoint (x: self.size.width / 2, y: self.size.height * 0.1)
         self.addChild(mainMenuText)
     }
     
