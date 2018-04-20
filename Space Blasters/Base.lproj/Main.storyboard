@@ -17,26 +17,9 @@
                     <view key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" id="3se-qz-xqx" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dkQ-kv-zGO" customClass="GADBannerView">
-                                <rect key="frame" x="0.0" y="686" width="414" height="50"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="G2x-Sl-22w"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="dkQ-kv-zGO" firstAttribute="trailing" secondItem="4qk-I5-YsI" secondAttribute="trailing" id="IHD-je-KSs"/>
-                            <constraint firstItem="dkQ-kv-zGO" firstAttribute="leading" secondItem="4qk-I5-YsI" secondAttribute="leading" id="fCk-mW-Rzo"/>
-                            <constraint firstItem="dkQ-kv-zGO" firstAttribute="bottom" secondItem="4qk-I5-YsI" secondAttribute="bottom" id="jqv-hx-uwg"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="4qk-I5-YsI"/>
                     </view>
-                    <connections>
-                        <outlet property="bannerView" destination="dkQ-kv-zGO" id="FEb-kb-DZ8"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
             </objects>

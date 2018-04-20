@@ -222,7 +222,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(enemyLetThroughText) // add score text to scene
         
         // Move Socre Text and Lives Text into view of Screen
-        let moveOnToTopTextScreen = SKAction.moveTo(y: self.size.height * 0.05, duration: 0.5)
+        let moveOnToTopTextScreen = SKAction.moveTo(y: self.size.height * 0.1, duration: 0.5)
         enemyLetThroughText.run(moveOnToTopTextScreen)
         
         // Tap to Play Text Settings
