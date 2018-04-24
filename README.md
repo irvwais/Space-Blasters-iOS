@@ -32,15 +32,15 @@ Try to kill as many enemy ships as you can without letting them past you or take
 
 **Items**
 
-[x] No Item 'No Item is Spawned'
+- [x] No Item `No Item is Spawned`
 
-[x] One Plus HP 'Increases player's HP by 1'
+- [x] One Plus HP `Increases player's HP by 1`
 
-[] Double Laser Add On 'Allows the player two shoot an additional laser as long as no HP is lost'
+- [ ] Double Laser Add On `Allows the player two shoot an additional laser as long as no HP is lost`
 
-[] Over Shield 'Allows you to crash through kamakize ships a certian amount of times'
+- [ ] Over Shield `Allows you to crash through kamakize ships a certian amount of times`
 
-'x marks items that have been implemented'
+`x marks items that have been implemented into the Game`
 
 ## Additional Features
 - High Scores are saved and are checked to be updated after every game and are displayed on the game over screen.
