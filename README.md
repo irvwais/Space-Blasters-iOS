@@ -8,7 +8,7 @@
 Try to kill as many enemy ships as you can without letting them past you or take you out. **Survive as long as you can!**
 
 ## Controls:
-**Movment:**  Move your ship left or right by dragging your finger anywhere on the screen.
+**Movement:**  Move your ship left or right by dragging your finger anywhere on the screen.
 
 **Attack:**   Push on your ship to fire your blasters.
 
