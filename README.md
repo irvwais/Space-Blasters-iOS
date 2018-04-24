@@ -4,6 +4,8 @@
 
 **For Mobile Programming 2 course at Humber College**
 
+**[Game Play Footage]**() 
+
 2D Space Shooter game made for iOS with Swift via xcode.
 
 ## Overall Objective:
@@ -60,6 +62,8 @@ Try to kill as many enemy ships as you can without letting them past you or take
 `Kamakize Ship` [Image Source](https://www.google.ca/search?tbm=isch&q=2d+spaceships&spell=1&sa=X&ved=0ahUKEwiy-ZvdxdPaAhVpZN8KHfz_AXoQBQimASgA&biw=1214&bih=1270&dpr=2#imgrc=8bRHPYxrRkJ9oM:)
 
 `Enemy Boss Ship` [Image Source](https://www.google.ca/search?biw=1214&bih=1270&tbm=isch&sa=1&ei=7nffWtTRJKjv_QbW_JWADw&q=2d+enemy+boss+ships&oq=2d+enemy+boss+ships&gs_l=psy-ab.3...242919.245845.0.245988.16.16.0.0.0.0.60.820.16.16.0....0...1c.1.64.psy-ab..0.6.315...0j0i67k1j0i8i30k1j0i24k1j0i30k1.0.X_6SjN6qXVQ#imgrc=CUYX6G8zo97TQM:)
+
+`Explosion Image` [Image Source](https://www.google.ca/search?q=2d+explosion&tbm=isch&source=lnt&tbs=ic:trans&sa=X&ved=0ahUKEwjfjMXLzNPaAhUEON8KHRz3Bo4QpwUIHg&biw=1214&bih=1227&dpr=2#imgdii=RX69pqkVxsGWDM:&imgrc=JiP5eJ_WTcEMTM:)
 
 `Background Space` [Image Source](https://www.google.ca/search?q=www.toxsoft.com+space+background&source=lnms&tbm=isch&sa=X&ved=0ahUKEwiWn7PtyNPaAhVIPN8KHbwuA1UQ_AUICigB&biw=1214&bih=1227#imgrc=SIh6eCYeqRW8-M:)
 
