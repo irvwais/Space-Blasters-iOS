@@ -2,6 +2,8 @@
 
 **By: Irving Waisman**
 
+**For Mobile Programming 2 course at Humber College**
+
 2D Space Shooter game made for iOS with Swift via xcode.
 
 ## Overall Objective:
