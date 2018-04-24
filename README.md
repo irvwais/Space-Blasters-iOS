@@ -1,5 +1,5 @@
 # Space-Blasters-iOS
-*2D Space Shoot Em Up made for iPhone with Swift*
+
 **By: Irving Waisman**
 
 2D Space Shooter game made for iOS with Swift via xcode.
