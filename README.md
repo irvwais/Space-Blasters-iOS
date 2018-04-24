@@ -55,7 +55,7 @@ Try to kill as many enemy ships as you can without letting them past you or take
 
 **Images taken Online**
 
-[[https://github.com/irvwais/Space-Blasters-iOS/blob/master/Space%20Blasters/Assets.xcassets/PlayerShip1.imageset/PlayerShip1.png]]
+
 
 `Player Ship` [Image Source](https://www.google.ca/search?biw=1214&bih=1227&tbm=isch&sa=1&ei=LXjfWvrAGfCmggfn_qOwDw&q=2d+player+spaceships&oq=2d+player+spaceships&gs_l=psy-ab.3...350469.353531.0.353642.17.16.0.1.1.0.93.879.16.16.0....0...1c.1.64.psy-ab..0.9.444...0j0i67k1j0i8i30k1j0i24k1j0i30k1.0.v464ZW_0Duo#imgrc=y688ecpeTD1wtM:)
 
