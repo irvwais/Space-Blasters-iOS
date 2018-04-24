@@ -4,20 +4,20 @@
 
 2D Space Shooter game made for iOS with Swift via xcode.
 
-##Overall Objective:
+## Overall Objective:
 Try to kill as many enemy ships as you can without letting them past you or take you out. **Survive as lon as you can!**
 
-##Controls:
+## Controls:
 **Movment:**  Move your ship left or right by dragging your finger anywhere on the screen.
 **Attack:**   Push on your ship to fire your blasters.
 
-##Additional Goals:
+## Additional Goals:
 - Increase your score by shooting down enemy ships.
 - Avoid collision with kamikaze ships.
 - Try not to lose all your HP from the enemy boss blasters.
 - Get through as many levels as you can by defeating the enemy boss at the end of each level.
 
-##Gameplay:
+## Gameplay:
 **Enemy Kamakize Ships**
 - Enemy kamakize ships will fly at you in random order and try to collide with your ship.
 - If an kamakize ship collides with you it's game over.
@@ -34,13 +34,13 @@ Try to kill as many enemy ships as you can without letting them past you or take
 
 'x marks items that have been implemented'
 
-##Additional Features
+## Additional Features
 - High Scores are saved and are checked to be updated after every game and are displayed on the game over screen.
 - How many enemy bosses were killed is also checked and displayed on the game over screen.
 - As well as how many enemy ships passed through.
 - Networking component is Google Ad Mod displayed at the bottom of the screen in the view controller.
 
-##Assets
+## Assets
 **Images taken Online**
 
 **Images Created**
