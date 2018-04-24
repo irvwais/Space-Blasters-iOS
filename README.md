@@ -31,9 +31,13 @@ Try to kill as many enemy ships as you can without letting them past you or take
 - When you kill an enemy boss a random item will spawn which can give you additional perks.
 
 **Items**
+
 [x] No Item 'No Item is Spawned'
+
 [x] One Plus HP 'Increases player's HP by 1'
+
 [] Double Laser Add On 'Allows the player two shoot an additional laser as long as no HP is lost'
+
 [] Over Shield 'Allows you to crash through kamakize ships a certian amount of times'
 
 'x marks items that have been implemented'
