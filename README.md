@@ -4,7 +4,7 @@
 
 **For Mobile Programming 2 course at Humber College**
 
-**[Game Play Footage]**() 
+**[Game Play Footage](https://youtu.be/JJ2zZgzdXJk)** 
 
 2D Space Shooter game made for iOS with Swift via xcode.
 
